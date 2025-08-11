@@ -1,9 +1,8 @@
-
-using Content.Maths.FixedPoint;
 using Content.Server.Plumbing.Components;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Shared.Chemistry.Components;
 using Robust.Shared.Prototypes;
+using Content.Shared.FixedPoint;
 
 namespace Content.Server.Plumbing.EntitySystems;
 

@@ -1,9 +1,9 @@
-using Content.Maths.FixedPoint;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.NodeGroups;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared.Atmos;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.FixedPoint;
 using Content.Shared.NodeContainer;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
@@ -38,7 +38,7 @@ public partial class PlumbingNode : Node, IRotatableNode
     ///     The <see cref="PlumbingNet"/> this node is a part of.
     /// </summary>
     [ViewVariables]
-    private PlumbingNet? PlumbingNet => (PlumbingNet?) NodeGroup;
+    private PlumbingNet? PlumbingNet => (PlumbingNet?)NodeGroup;
 
     /// <summary>
     ///     The solution of this node's <see cref="PlumbingNet"/>.

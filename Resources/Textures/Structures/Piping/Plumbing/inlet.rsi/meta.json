@@ -8,30 +8,6 @@
   },
   "states": [
     {
-      "name": "straight",
-      "directions": 4
-    },
-    {
-      "name": "elbow",
-      "directions": 4
-    },
-    {
-      "name": "junction",
-      "directions": 4
-    },
-    {
-      "name": "quad",
-      "directions": 4
-    },
-    {
-      "name": "straight-viewable",
-      "directions": 4
-    },
-    {
-      "name": "f-straight-viewable-1",
-      "directions": 4
-    },
-    {
       "name": "inlet0",
       "directions": 4
     },
@@ -126,48 +102,6 @@
           0.5
         ]
       ]
-    },
-    {
-      "name": "output1",
-      "directions": 4,
-      "delays": [
-        [
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1
-        ],
-        [
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1
-        ],
-        [
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1
-        ],
-        [
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1
-        ]
-      ]
-    },
-    {
-      "name": "output0",
-      "directions": 4
     }
   ]
 }
