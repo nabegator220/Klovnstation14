@@ -1,0 +1,142 @@
+- type: entity
+  parent: FluidPipeBase
+  abstract: true
+  id: PlumbingDeviceBase
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: PlumbingDevice
+  - type: SubFloorHide
+    blockInteractions: false
+    blockAmbience: false
+  - type: CollideOnAnchor
+  - type: Tag
+    tags:
+      - Unstackable
+
+- type: entity
+  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  id: FluidSynthesizer
+  name: fluid synthesizer
+  description: Creates basic reagents out of juice. Electricity. Don't think about it too much.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Structures/Piping/Atmospherics/condenser.rsi
+    snapCardinals: true
+    granularLayersRendering: true
+    layers:
+    - state: off
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: pipe
+      map: [ "enum.PipeVisualLayers.Pipe" ]
+      renderingStrategy: Default
+    - state: fill-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: trans
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { state: on }
+          False: { state: off }
+  - type: SolutionContainerVisuals
+    maxFillLevels: 7
+    fillBaseName: fill-
+  - type: Appearance
+  - type: PipeColorVisuals
+  - type: Rotatable
+  - type: PlumbingDevice
+  - type: PlumbingSynthesizer
+    rate: 5
+  - type: ApcPowerReceiver
+    powerLoad: 10000
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: NodeContainer
+    nodes:
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+  - type: Transform
+    noRot: false
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        maxVol: 50
+  - type: DrainableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+
+- type: entity
+  parent: PlumbingDeviceBase
+  id: PlumbingDrain
+  name: fluid sink
+  description: A scary-looking vacuum drain. Hm.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    drawdepth: FloorObjects
+    noRot: true
+    sprite: Structures/Piping/fluid_pipe.rsi
+    layers:
+    - map: [ "enum.PipeVisualLayers.Pipe" ]
+      state: inlet1
+    - map: [ "enum.SubfloorLayers.FirstLayer" ]
+      state: inlet1h
+  - type: SubFloorHide
+    visibleLayers:
+    - enum.SubfloorLayers.FirstLayer
+  - type: Appearance
+  - type: Rotatable
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+        capacity: 500
+  - type: Transform
+    noRot: false
+  - type: PlumbingSolutionReplicator
+    solution: drainBuffer
+    node: inlet
+  - type: SolutionContainerManager
+    solutions:
+      drainBuffer:
+        maxVol: 0
+  - type: AmbientSound
+    enabled: false
+    volume: -8
+    range: 8
+    sound:
+      path: /Audio/Ambience/Objects/drain.ogg
+  - type: Drain
+  - type: DrainableSolution
+    solution: drainBuffer
+  - type: ExaminableSolution
+    solution: drainBuffer

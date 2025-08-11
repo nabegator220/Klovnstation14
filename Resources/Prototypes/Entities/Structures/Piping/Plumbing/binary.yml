@@ -1,0 +1,77 @@
+- type: entity
+  abstract: true
+  parent: PlumbingDeviceBase
+  id: BinaryPlumbingDeviceBase
+  components:
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+
+- type: entity
+  parent: BinaryPlumbingDeviceBase
+  id: PlumbingPump
+  name: fluid pump
+  description: A menacing electromagnetically-operated fluid pump. Hm.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    drawdepth: FloorObjects
+    noRot: true
+    sprite: Structures/Piping/fluid_pipe.rsi
+    layers:
+    - map: [ "main" ]
+      state: pump0
+  - type: NodeContainer
+    nodes:
+      inlet: # Reversed directions due to the sprite.
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+  - type: Rotatable
+  - type: Transform
+    noRot: false
+  - type: AnimationPlayer
+  - type: PlumbingPump
+  - type: PlumbingTransitioningDevice
+    toggleOnActivate: true
+    layer: "main"
+    offState: pump0
+    onState: pump1
+
+- type: entity
+  parent: BinaryPlumbingDeviceBase
+  id: PlumbingValve
+  name: fluid valve
+  description: An unsafe-looking electromagnetic valve with a large wheel.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    drawdepth: FloorObjects
+    noRot: true
+    sprite: Structures/Piping/fluid_pipe.rsi
+    layers:
+    - map: [ "main" ]
+      state: valve0
+  - type: Rotatable
+  - type: Transform
+    noRot: false
+  - type: AnimationPlayer
+  - type: PlumbingValve
+  - type: PlumbingTransitioningDevice
+    layer: "main"
+    offState: valve0
+    onState: valve1
+
