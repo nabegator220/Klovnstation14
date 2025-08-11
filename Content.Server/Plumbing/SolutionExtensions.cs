@@ -34,9 +34,10 @@ public static class SolutionExtensions
 
     static SolutionExtensions()
     {
-        HcfDmIl.Emit(OpCodes.Ldarg_0); // Sol
-        HcfDmIl.Emit(OpCodes.Ldflda, HeatCapacityField); // ref Sol
-        HcfDmIl.Emit(OpCodes.Ret); // => ref Sol
+
+        HcfDmIl.Emit(OpCodes.Ldarg_0); // Solution
+        HcfDmIl.Emit(OpCodes.Ldflda, HeatCapacityField); // ref Solution
+        HcfDmIl.Emit(OpCodes.Ret); // return (ref Solution)
 
         ExpHeatCapacity = HcfDm.CreateDelegate<HeatCapacityExper>();
     }
@@ -47,7 +48,7 @@ public static class SolutionExtensions
     /// </summary>
     /// <remarks>
     ///     Cheaper performance-wise. Heat-capacity isn't re-calculated,
-    ///         but multiplied to basically achieve the same one.
+    ///         but multiplied to basically achieve the valid one.
     /// </remarks>
     public static Solution CopySplitSolution(this Solution solution, FixedPoint2 toTake, IPrototypeManager? prototypeManager = null)
     {
@@ -62,7 +63,7 @@ public static class SolutionExtensions
 
         var newSolution = new Solution(solution.Contents.Count) { Temperature = solution.Temperature };
 
-        var remaining = (long) toTake.Value;
+        var remaining = (long)toTake.Value;
         FixedPoint2 taken = 0;
 
         for (var i = solution.Contents.Count - 1; i >= 0; --i) // iterate backwards because of remove swap.
@@ -79,7 +80,7 @@ public static class SolutionExtensions
                 continue;
             }
 
-            var splitInVolume = FixedPoint2.FromCents((int) split);
+            var splitInVolume = FixedPoint2.FromCents((int)split);
             newSolution.Contents.Add(
                 new ReagentQuantity(
                     reagent,
@@ -97,7 +98,7 @@ public static class SolutionExtensions
         DebugTools.Assert(remaining == 0 || solution.Volume == FixedPoint2.Zero);
 
         // FP imprecision bait #1. This is the ratio of the taken solution's volume compared to that of the original solution's volume.
-        var takenRatio = 1f - (float) (taken / originalVolume);
+        var takenRatio = 1f - (float)(taken / originalVolume);
 
         // As said we don't mutate anything so we just do this.
         ExpHeatCapacity(newSolution) = ExpHeatCapacity(solution) * takenRatio;
@@ -142,7 +143,7 @@ public static class SolutionExtensions
         {
             var old = solutionContents[i];
 
-            // What the fuck? Why isn't this just `old.Volume`? I won't question it though because SURELY there's a good reason for it.
+            // Regarding the original code: What the fuck? Why isn't this just `old.Volume`? I won't question it though because SURELY there's a good reason for it.
             var newQuantity = old.Quantity * scale;
 
             if (newQuantity == FixedPoint2.Zero)
@@ -155,6 +156,6 @@ public static class SolutionExtensions
         }
 
         // FP imprecision bait #2
-        ExpHeatCapacity(solution) *= (float) scale;
+        ExpHeatCapacity(solution) *= (float)scale;
     }
 }

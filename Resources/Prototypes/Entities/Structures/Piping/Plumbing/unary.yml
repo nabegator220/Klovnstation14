@@ -102,7 +102,7 @@
   - type: Sprite
     drawdepth: FloorObjects
     noRot: true
-    sprite: Structures/Piping/fluid_pipe.rsi
+    sprite: Structures/Piping/Plumbing/inlet.rsi
     layers:
     - map: [ "enum.PipeVisualLayers.Pipe" ]
       state: inlet1

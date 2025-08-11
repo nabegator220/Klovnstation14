@@ -4,7 +4,7 @@
   parent: BaseItem
   id: FluidPipeBase
   name: fluid pipe
-  description: A steel fluid conduit.
+  description: "A steel fluid conduit. It's filled with many microscopic channels that carry individual reagents, akin to the structure of fiber-optic cable. In layman's terms: chem's dont react while inside. Fuck you. Don't make a bomb with this please."
   placement:
     mode: SnapgridCenter
   components:

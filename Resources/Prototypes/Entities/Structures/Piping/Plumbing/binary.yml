@@ -25,7 +25,7 @@
   - type: Sprite
     drawdepth: FloorObjects
     noRot: true
-    sprite: Structures/Piping/fluid_pipe.rsi
+    sprite: Structures/Piping/Plumbing/pump.rsi
     layers:
     - map: [ "main" ]
       state: pump0
@@ -61,7 +61,7 @@
   - type: Sprite
     drawdepth: FloorObjects
     noRot: true
-    sprite: Structures/Piping/fluid_pipe.rsi
+    sprite: Structures/Piping/Plumbing/valve.rsi
     layers:
     - map: [ "main" ]
       state: valve0

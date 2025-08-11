@@ -8,27 +8,7 @@
   },
   "states": [
     {
-      "name": "straight",
-      "directions": 4
-    },
-    {
-      "name": "elbow",
-      "directions": 4
-    },
-    {
-      "name": "junction",
-      "directions": 4
-    },
-    {
-      "name": "quad",
-      "directions": 4
-    },
-    {
-      "name": "straight-viewable",
-      "directions": 4
-    },
-    {
-      "name": "f-straight-viewable-1",
+      "name": "port",
       "directions": 4
     }
   ]

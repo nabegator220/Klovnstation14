@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "license": "CC-BY-NC-SA-3.0",
+  "copyright": "Taken from https://github.com/Laboredih123/goonstation/blob/11fc393818d40e186424e8e6023865f7f3a02847/icons/obj/fluidpipes/fluid_pipe.dmi , sprites by Flaborized, original PR at https://github.com/goonstation/goonstation/pull/20001",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "straight",
+      "directions": 4
+    },
+    {
+      "name": "elbow",
+      "directions": 4
+    },
+    {
+      "name": "junction",
+      "directions": 4
+    },
+    {
+      "name": "quad",
+      "directions": 4
+    },
+    {
+      "name": "straight-viewable",
+      "directions": 4
+    },
+    {
+      "name": "f-straight-viewable-1",
+      "directions": 4
+    },
+    {
+      "name": "inlet0",
+      "directions": 4
+    },
+    {
+      "name": "inlet1",
+      "directions": 4
+    },
+    {
+      "name": "inlet0h"
+    },
+    {
+      "name": "inlet1h"
+    },
+    {
+      "name": "inlet10",
+      "directions": 4,
+      "delays": [
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ],
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ],
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ],
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ]
+      ]
+    },
+    {
+      "name": "inlet01",
+      "directions": 4,
+      "delays": [
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ],
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ],
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ],
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ]
+      ]
+    },
+    {
+      "name": "inlet10h",
+      "delays": [
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ]
+      ]
+    },
+    {
+      "name": "inlet01h",
+      "delays": [
+        [
+          0.5,
+          0.1,
+          0.1,
+          0.5
+        ]
+      ]
+    },
+    {
+      "name": "output1",
+      "directions": 4,
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ],
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ],
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ],
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "output0",
+      "directions": 4
+    }
+  ]
+}
