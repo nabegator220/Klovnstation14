@@ -100,7 +100,7 @@ public sealed class PlumbingSystem : EntitySystem
             float totalRequested = 0f;
 
             for (int i = 0; i < c; ++i)
-                totalRequested += (float) queuedTransfers[i].MovedSolution.Volume;
+                totalRequested += (float)queuedTransfers[i].MovedSolution.Volume;
 
             if (totalRequested <= 0)
             {
@@ -112,7 +112,7 @@ public sealed class PlumbingSystem : EntitySystem
 
             // That means that, for two of the exact same pump, both pulling an amount of fluid that is exactly as much as in this pipenet,
             //      both will pull half of the pipenet no matter which updates first.
-            var volumeFulfillmentRatio = (totalRequested > 0f) ? MathF.Min(1f, (float) net.Solution.Volume / totalRequested) : 0f;
+            var volumeFulfillmentRatio = (totalRequested > 0f) ? MathF.Min(1f, (float)net.Solution.Volume / totalRequested) : 0f;
 
             for (int i = 0; i < c; ++i)
             {
@@ -124,8 +124,7 @@ public sealed class PlumbingSystem : EntitySystem
                 // FP imprecision bait #1.5
                 transferredSolution.ScaleSolutionAndHeatCapacity(volumeFulfillmentRatio);
 
-                // This is good enough,, TODO: make this reagentquantity or something IDFK. So that we can have proper fluid filters etc..
-                net.Solution.SplitSolution(transferredSolution.Volume);
+                net.Solution.RemoveReagents(transferredSolution.Contents, _prototypeManager);
                 if (transfer.TargetSolution is { } target)
                     target.AddSolution(transferredSolution, _prototypeManager);
             }

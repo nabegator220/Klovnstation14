@@ -9,7 +9,6 @@ namespace Content.Server.Plumbing.EntitySystems;
 
 public sealed class PlumbingPumpSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly NodeContainerSystem _nodeContainerSystem = default!;
     [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
 
@@ -36,7 +35,7 @@ public sealed class PlumbingPumpSystem : EntitySystem
         if (pulledVolume <= FixedPoint2.Zero)
             return;
 
-        var taken = inputNet.Solution.CopySplitSolution(pulledVolume, _prototypeManager);
+        var taken = inputNet.Solution.CopySplitSolution(pulledVolume);
         inputNet.QueueTransfer(taken, outputNet);
     }
 

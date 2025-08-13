@@ -50,7 +50,7 @@ public static class SolutionExtensions
     ///     Cheaper performance-wise. Heat-capacity isn't re-calculated,
     ///         but multiplied to basically achieve the valid one.
     /// </remarks>
-    public static Solution CopySplitSolution(this Solution solution, FixedPoint2 toTake, IPrototypeManager? prototypeManager = null)
+    public static Solution CopySplitSolution(this Solution solution, FixedPoint2 toTake)
     {
         if (toTake <= FixedPoint2.Zero)
             return new Solution();
@@ -125,6 +125,7 @@ public static class SolutionExtensions
     ///         or dirty and re-calculate heatcapacities for this afterwards.
     /// </remarks>
     /// <param name="scale">The scalar to modify the solution by.</param>
+    // This takes fixedpoint2 instead of float because it plays nicer with multiplying another fixedpoint2.
     public static void ScaleSolutionAndHeatCapacity(this Solution solution, FixedPoint2 scale)
     {
         if (scale == 1)
@@ -157,5 +158,45 @@ public static class SolutionExtensions
 
         // FP imprecision bait #2
         ExpHeatCapacity(solution) *= (float)scale;
+    }
+
+    /// <summary>
+    /// Takes a set of reagents from one solution.
+    /// </summary>
+    /// <remarks>
+    /// Unlike <see cref="Solution.RemoveSolution(FixedPoint2)"/>, preserves reagent data.
+    /// Intentionally does not update heatcapacity if <paramref name="prototypeManager"/> is null,
+    ///     in which case you are assumed to properly validate it later on.
+    /// </remarks>
+    public static void RemoveReagents(this Solution solution, List<ReagentQuantity> removedReagents, IPrototypeManager? prototypeManager = null)
+    {
+        var originalVolume = solution.Volume;
+        if (originalVolume <= FixedPoint2.Zero)
+            return;
+
+        var solutionContents = solution.Contents;
+        var removedVolume = FixedPoint2.Zero;
+
+        for (var i = removedReagents.Count - 1; i >= 0; --i)// iterate backwards because of remove swap.
+        {
+            var (reagent, removedQuantity, data) = removedReagents[i];
+            var originalQuantity = solutionContents[i].Quantity;
+
+            var newQuantity = originalQuantity - removedQuantity;
+
+            if (newQuantity > FixedPoint2.Zero)
+            {
+                solutionContents[i] = new ReagentQuantity(reagent, newQuantity, data);
+                removedVolume += removedQuantity;
+
+                continue;
+            }
+
+            solutionContents.RemoveSwap(i);
+            removedVolume += FixedPoint2.Max(FixedPoint2.Zero, originalQuantity - newQuantity);
+        }
+
+        solution.Volume -= removedVolume;
+        solution.UpdateHeatCapacity(prototypeManager);
     }
 }
