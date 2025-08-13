@@ -7,6 +7,7 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 using Robust.Shared.Prototypes;
+using Content.Shared.FixedPoint;
 
 namespace Content.Server.Plumbing;
 
@@ -76,7 +77,7 @@ public sealed class PlumbingNet : BaseNodeGroup, INodeGroup
 
         foreach (var node in groupNodes)
         {
-            var plumbingNode = (PlumbingNode) node;
+            var plumbingNode = (PlumbingNode)node;
             Solution.MaxVolume += plumbingNode.Capacity;
         }
     }
@@ -93,35 +94,36 @@ public sealed class PlumbingNet : BaseNodeGroup, INodeGroup
         Solution.MaxVolume -= plumbing.Capacity;
     }
 
-    // TODO: Fix this shit and make it less ass. Sure it can distribute maxvolume well enough but it shits itself trying to distribute reagents.
     public override void AfterRemake(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups)
     {
         _plumbingSystem?.RemovePlumbingNet(this);
 
-        // Also. This doesn't really get properly split because
-        // ?? though i know it doesn't get equally split.
+        var plumbingNets = new List<PlumbingNet>();
+        var totalMaxVolume = FixedPoint2.Zero;
 
-        // Try having 2 pipenets of differing volume with fluid
-        // and open a valve. Total amount of juice still exists MOST of the time
-        // however it's not equally split. Ok whatever.
-
-        var cached = Solution.Clone();
-        var originalMaxVolume = Solution.MaxVolume;
         foreach (var newGroup in newGroups)
         {
             if (newGroup.Key is not PlumbingNet net)
                 continue;
 
-            var allocated = cached.Clone();
-            var allocatedMaxVolumeFraction = allocated.MaxVolume / originalMaxVolume;
+            plumbingNets.Add(net);
+            totalMaxVolume += net.Solution.MaxVolume;
+        }
 
-            allocated.ScaleSolutionAndHeatCapacity(allocatedMaxVolumeFraction);
-            allocated.MaxVolume *= allocatedMaxVolumeFraction;
+        var cached = Solution.Clone();
+        foreach (var net in plumbingNets)
+        {
+            var netSolution = net.Solution;
+            // Cast to float for better precision. Kinda.
+            var allocatedFraction = (float)netSolution.MaxVolume / (float)totalMaxVolume;
 
-            net.Solution.AddSolution(allocated, _prototypeManager);
+            var allocatedSolution = cached.Clone();
+            allocatedSolution.ScaleSolutionAndHeatCapacity(allocatedFraction);
+
+            netSolution.AddSolution(allocatedSolution, _prototypeManager);
         }
     }
 
     public override string GetDebugData()
-        => @$"Volume: {(float) Solution.Volume} / {(float) Solution.MaxVolume}";
+        => @$"Volume: {(float)Solution.Volume} / {(float)Solution.MaxVolume}";
 }

@@ -11,12 +11,6 @@ public sealed class PlumbingSystem : EntitySystem
 {
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
-    // I know theres FixedPoint2.Zero but this is just for clarity.
-    // Also they're readonly statics which ig are better than FixedPoint2's just statics.
-    private static readonly FixedPoint2 Fp2Zero = FixedPoint2.Zero;
-    // Why would anyone do this?!
-    private static readonly FixedPoint2 Fp2One = FixedPoint2.New(1);
-
 
     private Stopwatch _processingStopwatch = new();
 
@@ -54,11 +48,6 @@ public sealed class PlumbingSystem : EntitySystem
         Process(deltaTime);
     }
 
-    // TODO: Apply Ilya's nuclear subframe-killing solution to this. It's basically totally possible or something right now i don't fucking know.
-    // On a top-level this is how it looks like:
-    // 2. Go by every pipenet and cache the net's solution's FillFraction for whatever to use
-    // 2. Go by every pipenet, and add to it the output of every applied machine
-    // 3. Go by every pipenet, and steal from it according to every applied machine
     public void Process(float deltaTime)
     {
         _processingStopwatch.Restart();
@@ -81,7 +70,7 @@ public sealed class PlumbingSystem : EntitySystem
         // I AM THE GOD OF HELLFIRE
         // First just handle the thingamajigs that spawn in fluid from nowhere instead of transferring it.
 
-        // Also holy shit, can't we just cache heatcapacities somewhere? Dictionaries would be
+        // Also holy shit, can't we just cache heatcapacities for each reagent somewhere? Dictionaries would be
         // *very* good for this use-case.
         Parallel.ForEach(_plumbingNets, net =>
         {
@@ -112,6 +101,7 @@ public sealed class PlumbingSystem : EntitySystem
 
             // That means that, for two of the exact same pump, both pulling an amount of fluid that is exactly as much as in this pipenet,
             //      both will pull half of the pipenet no matter which updates first.
+            // If there's enough in the pipenet to fulfill both pumps completely, then this value will be 1; both pumps will be able to take as much as necessary.
             var volumeFulfillmentRatio = (totalRequested > 0f) ? MathF.Min(1f, (float)net.Solution.Volume / totalRequested) : 0f;
 
             for (int i = 0; i < c; ++i)

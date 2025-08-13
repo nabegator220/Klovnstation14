@@ -197,6 +197,7 @@ public static class SolutionExtensions
         }
 
         solution.Volume -= removedVolume;
-        solution.UpdateHeatCapacity(prototypeManager);
+        // ffs this resolves protoman when it could have perfectly just taken it as input
+        solution.ValidateSolution();
     }
 }

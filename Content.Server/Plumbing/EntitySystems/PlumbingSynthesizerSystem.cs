@@ -25,8 +25,11 @@ public sealed class PlumbingSynthesizerSystem : EntitySystem
             return;
 
         var netSolution = net.Solution;
-        net.QueueInput(
-            new Solution(synthesizerComponent.ProducedReagent, FixedPoint2.Min(netSolution.MaxVolume - netSolution.Volume, synthesizerComponent.Rate * args.DeltaTime))
-        );
+
+        var movedAmount = FixedPoint2.Min(netSolution.MaxVolume - netSolution.Volume, synthesizerComponent.Rate * args.DeltaTime);
+        if (movedAmount <= FixedPoint2.Zero)
+            return;
+
+        net.QueueInput(new Solution(synthesizerComponent.ProducedReagent, movedAmount));
     }
 }

@@ -3,8 +3,7 @@ using Content.Shared.Chemistry.Components;
 namespace Content.Server.Plumbing;
 
 /// <summary>
-///     Event for a plumbing device to pull fluids from input pipenets,
-///         and process them.
+///     Event for a plumbing device to queue tranfers of fluids.
 /// </summary>
 [ByRefEvent]
 public readonly record struct PlumbingDeviceProcessEvent(float DeltaTime);

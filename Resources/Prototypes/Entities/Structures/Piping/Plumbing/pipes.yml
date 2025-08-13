@@ -43,7 +43,7 @@
         acts: ["Destruction"]
 
   - type: Sprite
-    sprite: Structures/Piping/fluid_pipe.rsi
+    sprite: Structures/Piping/Plumbing/fluid_pipe.rsi
     drawdepth: ThinPipe
     visible: false
   - type: Appearance
@@ -90,8 +90,8 @@
     - map: [ "enum.PipeVisualLayers.Pipe" ]
       state: straight-viewable
     - map: ["enum.SolutionContainerLayers.Fill"]
-      state: f-straight-viewable-1
-      visible: false
+      state: f-straight-viewable-0
+      visible: true
   - type: PlumbingDevice # :trollface:
   - type: PlumbingSolutionReplicator
     solution: pipe
@@ -104,35 +104,7 @@
     solution: pipe
   - type: SolutionContainerVisuals
     solutionName: pipe
-    maxFillLevels: 1
-    fillBaseName: f-straight-viewable-
-
-- type: entity
-  parent: FluidPipeStraight
-  id: FluidPipeStraightDebug
-  name: window fluid pipe
-  description: A steel fluid conduit with a snazzy window to look inside with.
-  suffix: DEBUG
-  components:
-  - type: Sprite
-    layers:
-    - map: [ "enum.PipeVisualLayers.Pipe" ]
-      state: straight-viewable
-    - map: ["enum.SolutionContainerLayers.Fill"]
-      state: f-straight-viewable-1
-      visible: true
-  - type: PlumbingSolutionReplicator
-    solution: pipe
-    node: pipe
-  - type: SolutionContainerManager
-    solutions:
-      pipe:
-        maxVol: 50
-  - type: ExaminableSolution
-    solution: pipe
-  - type: SolutionContainerVisuals
-    solutionName: pipe
-    maxFillLevels: 1
+    maxFillLevels: 5
     fillBaseName: f-straight-viewable-
 
 - type: entity

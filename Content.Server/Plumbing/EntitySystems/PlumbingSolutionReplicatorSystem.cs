@@ -21,7 +21,7 @@ public sealed class PlumbingSolutionReplicatorSystem : EntitySystem
     {
         var (owner, replicatorComponent) = entity;
         if (!_nodeContainerSystem.TryGetNode(owner, replicatorComponent.NodeName, out PlumbingNode? plumbingNode) ||
-            plumbingNode.NetSolution == null)
+            plumbingNode.NetSolution is not { } netSolution)
             return;
 
         Entity<SolutionContainerManagerComponent?> solutionContainer = owner;
@@ -30,7 +30,7 @@ public sealed class PlumbingSolutionReplicatorSystem : EntitySystem
 
         var solutionComponent = solutionEntity.Value.Comp;
 
-        solutionComponent.Solution = plumbingNode.NetSolution;
+        solutionComponent.Solution = netSolution;
         Dirty(solutionEntity.Value, solutionComponent);
     }
 }
