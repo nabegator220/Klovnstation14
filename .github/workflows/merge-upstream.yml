@@ -1,0 +1,81 @@
+name: Merge and PR upstream changes
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # 2am utc daily
+  workflow_dispatch:
+
+env:
+  MERGE_BRANCH: auto-upstream-merge
+  MERGED_REPO: https://github.com/space-wizards/space-station-14.git
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  BASE_BRANCH: ${{ github.event.repository.default_branch || 'master' }}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - run: |
+        git config user.name ${{ vars.BOT_USER }}
+        git config user.email ${{ vars.BOT_EMAIL }}
+
+    - run: |
+        git remote add upstream $MERGED_REPO
+        git fetch upstream
+
+    - name: Merge
+      id: merge
+      run: |
+        git checkout -b $MERGE_BRANCH
+
+        BASE_COMMIT=$(git rev-parse HEAD)
+
+        if ! git merge upstream/master --no-edit; then
+          echo "Merge conflicts detected, committing conflicted merge"
+
+          git add -A
+          git commit --no-verify -m "Merge upstream with conflicts"
+          echo "conflicted=true" >> $GITHUB_OUTPUT
+        else
+          echo "conflicted=false" >> $GITHUB_OUTPUT
+        fi
+
+        if [ "$BASE_COMMIT" = "$(git rev-parse HEAD)" ]; then
+          echo "No changes found; aborting merge."
+          exit 0
+        fi
+
+    - run: |
+        git push --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git $MERGE_BRANCH
+
+    - id: findpr
+      uses: juliangruber/find-pull-request-action@v1.9.0
+      with:
+        branch: $MERGE_BRANCH
+        base: $BASE_BRANCH
+        state: open
+
+    - if: steps.findpr.outputs.pull_request_number != ''
+      run: |
+        echo "Merge PR already exists: #${{ steps.findpr.outputs.pull_request_number }}"
+
+    - uses: peter-evans/create-pull-request@v5
+      if: steps.findpr.outputs.pull_request_number == ''
+      with:
+        token: $GH_TOKEN
+        commit-message: 'Sync changes from upstream'
+        branch: $MERGE_BRANCH
+        base: $BASE_BRANCH
+        title: 'Merge changes from upstream repository'
+        body: |
+          This is an automated PR to merge from upstream.
+        labels: Automated
+
+    - if: steps.merge.outputs.conflicted == 'true'
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        labels: "S: Merge Conflict"
