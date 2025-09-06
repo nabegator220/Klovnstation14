@@ -16,6 +16,12 @@
     <PackageReference Include="Nett" />
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" />
   </ItemGroup>
+
+  <!-- MNET14 -->
+  <ItemGroup>
+    <ProjectReference Include="../Manifest/Content.Manifest.Client/Content.Manifest.Client.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\RobustToolbox\Lidgren.Network\Lidgren.Network.csproj" />
     <ProjectReference Include="..\RobustToolbox\Robust.Shared.Maths\Robust.Shared.Maths.csproj" />

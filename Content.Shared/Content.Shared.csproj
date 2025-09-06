@@ -11,6 +11,12 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" />
   </ItemGroup>
+
+  <!-- MNET14 -->
+  <ItemGroup>
+    <ProjectReference Include="../Manifest/Content.Manifest.Shared/Content.Manifest.Shared.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Content.Shared.Database\Content.Shared.Database.csproj" />
     <ProjectReference Include="..\RobustToolbox\Lidgren.Network\Lidgren.Network.csproj">

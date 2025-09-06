@@ -17,6 +17,12 @@
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" />
     <PackageReference Include="NetCord" />
   </ItemGroup>
+
+  <!-- MNET14 -->
+  <ItemGroup>
+    <ProjectReference Include="../Manifest/Content.Manifest.Server/Content.Manifest.Server.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Content.Packaging\Content.Packaging.csproj" />
     <ProjectReference Include="..\Content.Server.Database\Content.Server.Database.csproj" />

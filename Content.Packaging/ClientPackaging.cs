@@ -75,7 +75,11 @@ public static class ClientPackaging
             inputPass,
             contentDir,
             "Content.Client",
-            new[] { "Content.Client", "Content.Shared", "Content.Shared.Database" },
+            new[] { "Content.Client",
+                "Content.Shared",
+                "Content.Shared.Database",
+                "Content.Manifest.Client", // MNET
+                "Content.Manifest.Shared" }, // MNET
             cancel: cancel);
 
         await RobustClientPackaging.WriteClientResources(contentDir, inputPass, cancel);
