@@ -40,8 +40,6 @@ public static class ServerPackaging
         "Content.Server",
         "Content.Shared",
         "Content.Shared.Database",
-        "Content.Manifest.Client", // MNET
-        "Content.Manifest.Shared" , // MNET
     };
 
     private static readonly List<string> ServerExtraAssemblies = new()

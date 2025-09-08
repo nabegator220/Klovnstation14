@@ -18,7 +18,12 @@
   </ItemGroup>
 
   <!-- MNET14 -->
-  <ItemGroup>
+  <PropertyGroup Condition="Exists('../Manifest/Content.Manifest.Client')">
+    <DefineConstants>$(DefineConstants);SUBMODULE_DEFINED</DefineConstants>
+  </PropertyGroup>
+
+  <!-- MNET14 -->
+  <ItemGroup Condition="Exists('../Manifest/Content.Manifest.Client')">
     <ProjectReference Include="../Manifest/Content.Manifest.Client/Content.Manifest.Client.csproj" />
   </ItemGroup>
 

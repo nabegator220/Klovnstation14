@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout Master
         uses: actions/checkout@v4.2.2
+        with:
+          submodules: recursive
 
       - name: Setup Submodule
         run: |

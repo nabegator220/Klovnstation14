@@ -18,8 +18,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Checkout Master
+    - name: Checkout Master with Submodule
       uses: actions/checkout@v4.2.2
+      with:
+        submodules: recursive
 
     - name: Setup Submodule
       run: |

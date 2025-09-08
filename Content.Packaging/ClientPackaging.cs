@@ -67,7 +67,7 @@ public static class ClientPackaging
         };
         dropSvgPass.AddDependency(graph.Input).AddBefore(graph.PresetPasses);
 
-        AssetGraph.CalculateGraph([pass, dropSvgPass, ..graph.AllPasses], logger);
+        AssetGraph.CalculateGraph([pass, dropSvgPass, .. graph.AllPasses], logger);
 
         var inputPass = graph.Input;
 
@@ -77,9 +77,7 @@ public static class ClientPackaging
             "Content.Client",
             new[] { "Content.Client",
                 "Content.Shared",
-                "Content.Shared.Database",
-                "Content.Manifest.Client", // MNET
-                "Content.Manifest.Shared" }, // MNET
+                "Content.Shared.Database" },
             cancel: cancel);
 
         await RobustClientPackaging.WriteClientResources(contentDir, inputPass, cancel);

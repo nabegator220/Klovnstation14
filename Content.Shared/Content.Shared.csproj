@@ -13,7 +13,12 @@
   </ItemGroup>
 
   <!-- MNET14 -->
-  <ItemGroup>
+  <PropertyGroup Condition="Exists('../Manifest/Content.Manifest.Shared')">
+    <DefineConstants>$(DefineConstants);SUBMODULE_DEFINED</DefineConstants>
+  </PropertyGroup>
+
+  <!-- MNET14 -->
+  <ItemGroup Condition="Exists('../Manifest/Content.Manifest.Shared')">
     <ProjectReference Include="../Manifest/Content.Manifest.Shared/Content.Manifest.Shared.csproj" />
   </ItemGroup>
 
