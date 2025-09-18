@@ -225,7 +225,7 @@ public sealed partial class GunComponent : Component
     /// When the gun is next available to be shot.
     /// Can be set multiple times in a single tick due to guns firing faster than a single tick time.
     /// </summary>
-    [DataField(customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoNetworkedField]
     [AutoPausedField]
     public TimeSpan NextFire = TimeSpan.Zero;
@@ -263,6 +263,24 @@ public sealed partial class GunComponent : Component
     /// </summary>
     [DataField]
     public Vector2 DefaultDirection = new Vector2(0, -1);
+
+    // MNET14
+    /// <summary>
+    /// Loc for popup to be shown, on the user's entity, when trying to fire an ammo-less gun.
+    /// </summary>
+    [DataField]
+    public string? EmptyFireLoc = "gun-fired-empty-entity";
+
+    // MNET14
+    /// <summary>
+    /// Minimum time passed between empty fires to play the empty firing effect.
+    /// </summary>
+    [DataField]
+    public TimeSpan EmptyFireInterval = TimeSpan.FromMilliseconds(40);
+
+    // MNET14
+    [AutoNetworkedField]
+    public bool LastShotWasEmpty = false;
 }
 
 [Flags]

@@ -1,0 +1,1 @@
+gun-fired-empty-entity = *click* *click*

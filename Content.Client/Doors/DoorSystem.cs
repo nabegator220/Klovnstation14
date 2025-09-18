@@ -90,7 +90,8 @@ public sealed class DoorSystem : SharedDoorSystem
             UpdateSpriteLayers((entity.Owner, args.Sprite), prototype);
 
         if (_animationSystem.HasRunningAnimation(entity, DoorComponent.AnimationKey))
-            _animationSystem.Stop(entity.Owner, DoorComponent.AnimationKey);
+            //_animationSystem.Stop(entity.Owner, DoorComponent.AnimationKey);
+            return; // MNET14: Fix doors lagging their animations. TODO: Fix and replace with another solution
 
         UpdateAppearanceForDoorState(entity, args.Sprite, state);
     }

@@ -38,22 +38,22 @@ namespace Content.Shared.Weapons.Ranged.Systems;
 
 public abstract partial class SharedGunSystem : EntitySystem
 {
-    [Dependency] private   readonly ActionBlockerSystem _actionBlockerSystem = default!;
+    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
     [Dependency] protected readonly IGameTiming Timing = default!;
     [Dependency] protected readonly IMapManager MapManager = default!;
-    [Dependency] private   readonly INetManager _netManager = default!;
+    [Dependency] private readonly INetManager _netManager = default!;
     [Dependency] protected readonly IPrototypeManager ProtoManager = default!;
     [Dependency] protected readonly IRobustRandom Random = default!;
     [Dependency] protected readonly ISharedAdminLogManager Logs = default!;
     [Dependency] protected readonly DamageableSystem Damageable = default!;
     [Dependency] protected readonly ExamineSystemShared Examine = default!;
-    [Dependency] private   readonly SharedHandsSystem _hands = default!;
-    [Dependency] private   readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private   readonly RechargeBasicEntityAmmoSystem _recharge = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly ItemSlotsSystem _slots = default!;
+    [Dependency] private readonly RechargeBasicEntityAmmoSystem _recharge = default!;
     [Dependency] protected readonly SharedActionsSystem Actions = default!;
     [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
     [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private   readonly SharedCombatModeSystem _combatMode = default!;
+    [Dependency] private readonly SharedCombatModeSystem _combatMode = default!;
     [Dependency] protected readonly SharedContainerSystem Containers = default!;
     [Dependency] protected readonly SharedPointLightSystem Lights = default!;
     [Dependency] protected readonly SharedPopupSystem PopupSystem = default!;
@@ -62,7 +62,7 @@ public abstract partial class SharedGunSystem : EntitySystem
     [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
     [Dependency] protected readonly TagSystem TagSystem = default!;
     [Dependency] protected readonly ThrowingSystem ThrowingSystem = default!;
-    [Dependency] private   readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly UseDelaySystem _useDelay = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     private const float InteractNextFire = 0.3f;
@@ -198,7 +198,8 @@ public abstract partial class SharedGunSystem : EntitySystem
         gun.ShotCounter = 0;
         gun.ShootCoordinates = null;
         gun.Target = null;
-        DirtyField(uid, gun, nameof(GunComponent.ShotCounter));
+        gun.LastShotWasEmpty = false; // MNET
+        DirtyFields(uid, gun, null, nameof(GunComponent.ShotCounter), nameof(GunComponent.LastShotWasEmpty));
     }
 
     /// <summary>
@@ -272,14 +273,13 @@ public abstract partial class SharedGunSystem : EntitySystem
         var shots = 0;
         var lastFire = gun.NextFire;
 
-        while (gun.NextFire <= curTime)
+        // MNET: gun.NextFire -> newNextFire
+        var newNextFire = gun.NextFire;
+        while (newNextFire <= curTime)
         {
-            gun.NextFire += fireRate;
+            newNextFire += fireRate;
             shots++;
         }
-
-        // NextFire has been touched regardless so need to dirty the gun.
-        DirtyField(gunUid, gun, nameof(GunComponent.NextFire));
 
         // Get how many shots we're actually allowed to make, due to clip size or otherwise.
         // Don't do this in the loop so we still reset NextFire.
@@ -298,7 +298,8 @@ public abstract partial class SharedGunSystem : EntitySystem
                 default:
                     throw new ArgumentOutOfRangeException($"No implemented shooting behavior for {gun.SelectedMode}!");
             }
-        } else
+        }
+        else
         {
             shots = Math.Min(shots, gun.ShotsPerBurstModified - gun.ShotCounter);
         }
@@ -337,13 +338,23 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         if (ev.Ammo.Count <= 0)
         {
+            if (gun.LastShotWasEmpty)
+                return;
+
+            // MNET Start
+            gun.LastShotWasEmpty = true;
+            gun.NextFire = lastFire + gun.EmptyFireInterval;
+
+            DirtyFields(gunUid, gun, null, nameof(GunComponent.LastShotWasEmpty), nameof(GunComponent.NextFire));
+            // MNET End
+
             // triggers effects on the gun if it's empty
             var emptyGunShotEvent = new OnEmptyGunShotEvent(user);
             RaiseLocalEvent(gunUid, ref emptyGunShotEvent);
 
             gun.BurstActivated = false;
             gun.BurstShotsCount = 0;
-            gun.NextFire += TimeSpan.FromSeconds(gun.BurstCooldown);
+            //gun.NextFire += TimeSpan.FromSeconds(gun.BurstCooldown); // MNET
 
             // Play empty gun sounds if relevant
             // If they're firing an existing clip then don't play anything.
@@ -351,15 +362,38 @@ public abstract partial class SharedGunSystem : EntitySystem
             {
                 PopupSystem.PopupCursor(ev.Reason ?? Loc.GetString("gun-magazine-fired-empty"));
 
+                // MNET14: ent-popup
+                if (gun.EmptyFireLoc is { } emptyFireLoc)
+                    PopupSystem.PopupPredicted(Loc.GetString(emptyFireLoc), user, user);
+
                 // Don't spam safety sounds at gun fire rate, play it at a reduced rate.
                 // May cause prediction issues? Needs more tweaking
-                gun.NextFire = TimeSpan.FromSeconds(Math.Max(lastFire.TotalSeconds + SafetyNextFire, gun.NextFire.TotalSeconds));
+
+                // MNET14: commented out
+                // gun.NextFire = TimeSpan.FromSeconds(Math.Max(lastFire.TotalSeconds + SafetyNextFire, gun.NextFire.TotalSeconds));
+
                 Audio.PlayPredicted(gun.SoundEmpty, gunUid, user);
+
                 return;
             }
 
             return;
         }
+
+        // MNET Start
+        gun.LastShotWasEmpty = false;
+
+        // TODO: explain why this is being done
+        var ammoEv = new GetAmmoCountEvent();
+        RaiseLocalEvent(gunUid, ref ammoEv);
+
+        // if we have no ammo then don't update NextFire, so we can do empty-fire effects immediately after running out of ammo, instead of waiting
+        if (ammoEv.Count > 0)
+            gun.NextFire = newNextFire;
+
+        // NextFire has been touched regardless so need to dirty the gun.
+        DirtyFields(gunUid, gun, null, nameof(GunComponent.LastShotWasEmpty), nameof(GunComponent.NextFire));
+        // MNET End
 
         // Handle burstfire
         if (gun.SelectedMode == SelectiveFire.Burst)
@@ -440,7 +474,7 @@ public abstract partial class SharedGunSystem : EntitySystem
     /// <summary>
     /// Call this whenever the ammo count for a gun changes.
     /// </summary>
-    protected virtual void UpdateAmmoCount(EntityUid uid, bool prediction = true) {}
+    protected virtual void UpdateAmmoCount(EntityUid uid, bool prediction = true) { }
 
     protected void SetCartridgeSpent(EntityUid uid, CartridgeAmmoComponent cartridge, bool spent)
     {
@@ -519,7 +553,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         var shotDirection = (toMap - fromMap).Normalized();
 
         const float impulseStrength = 25.0f;
-        var impulseVector =  shotDirection * impulseStrength;
+        var impulseVector = shotDirection * impulseStrength;
         Physics.ApplyLinearImpulse(user, -impulseVector, body: userPhysics);
     }
 
