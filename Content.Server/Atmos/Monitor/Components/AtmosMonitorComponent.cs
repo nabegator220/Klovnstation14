@@ -82,4 +82,10 @@ public sealed partial class AtmosMonitorComponent : Component
     /// </summary>
     [DataField]
     public string NodeNameMonitoredPipe = "monitored";
+
+    /// <summary>
+    /// KS14 - fire sensor - this variable is self explanatory, checks if the host tile is on fire.
+    /// </summary>
+    [DataField]
+    public bool IsOnFire = false;
 }

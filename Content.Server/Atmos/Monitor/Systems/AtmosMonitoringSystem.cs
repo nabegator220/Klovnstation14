@@ -52,6 +52,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
         SubscribeLocalEvent<AtmosMonitorComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceUpdateEvent>(OnAtmosUpdate);
         SubscribeLocalEvent<AtmosMonitorComponent, TileFireEvent>(OnFireEvent);
+        SubscribeLocalEvent<AtmosMonitorComponent, TileExtinguishEvent>(OnExtinguishEvent);
         SubscribeLocalEvent<AtmosMonitorComponent, PowerChangedEvent>(OnPowerChangedEvent);
         SubscribeLocalEvent<AtmosMonitorComponent, BeforePacketSentEvent>(BeforePacketRecv);
         SubscribeLocalEvent<AtmosMonitorComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
@@ -197,29 +198,24 @@ public sealed class AtmosMonitorSystem : EntitySystem
 
     private void OnFireEvent(EntityUid uid, AtmosMonitorComponent component, ref TileFireEvent args)
     {
+        // KS14 fire sensor code
         if (!this.IsPowered(uid, EntityManager))
             return;
 
-        // if we're monitoring for atmos fire, then we make it similar to a smoke detector
-        // and just outright trigger a danger event
-        //
-        // somebody else can reset it :sunglasses:
-        if (component.MonitorFire
-            && component.LastAlarmState != AtmosAlarmType.Danger)
+        if (component.MonitorFire)
         {
-            component.TrippedThresholds |= AtmosMonitorThresholdTypeFlags.Temperature;
-            Alert(uid, AtmosAlarmType.Danger, null, component); // technically???
+            component.IsOnFire = true;
         }
+    }
+    private void OnExtinguishEvent(EntityUid uid, AtmosMonitorComponent component, TileExtinguishEvent args)
+    {
+        // KS14 fire sensor code
+        if (!this.IsPowered(uid, EntityManager))
+            return;
 
-        // only monitor state elevation so that stuff gets alarmed quicker during a fire,
-        // let the atmos update loop handle when temperature starts to reach different
-        // thresholds and different states than normal -> warning -> danger
-        if (component.TemperatureThreshold != null
-            && component.TemperatureThreshold.CheckThreshold(args.Temperature, out var temperatureState)
-            && temperatureState > component.LastAlarmState)
+        if (component.MonitorFire)
         {
-            component.TrippedThresholds |= AtmosMonitorThresholdTypeFlags.Temperature;
-            Alert(uid, AtmosAlarmType.Danger, null, component);
+            component.IsOnFire = false;
         }
     }
 
@@ -312,6 +308,12 @@ public sealed class AtmosMonitorSystem : EntitySystem
             {
                 alarmTypes &= ~AtmosMonitorThresholdTypeFlags.Gas;
             }
+        }
+
+        // KS14 fire sensor
+        if (monitor.IsOnFire)
+        {
+            state = AtmosAlarmType.Danger;
         }
 
         // if the state of the current air doesn't match the last alarm state,

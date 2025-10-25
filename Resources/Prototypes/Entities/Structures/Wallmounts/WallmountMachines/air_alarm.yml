@@ -33,6 +33,7 @@
     syncWith:
     - AirAlarm
     - AirSensor
+    - FireSensor #KS14
     - GasVent
     - GasScrubber
   - type: AtmosAlarmableVisuals

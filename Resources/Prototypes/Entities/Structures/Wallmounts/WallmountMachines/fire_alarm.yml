@@ -25,6 +25,7 @@
     syncWith:
       - FireAlarm
       - AirSensor
+      - FireSensor #KS14
       - GasVent
       - GasScrubber
     monitorAlertTypes:
