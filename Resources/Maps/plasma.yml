@@ -25655,20 +25655,6 @@ entities:
     - type: Transform
       pos: -46.5,-56.5
       parent: 2
-- proto: BookSpaceLaw
-  entities:
-  - uid: 796
-    components:
-    - type: Transform
-      pos: -98.77395,-22.255527
-      parent: 2
-  - uid: 11630
-    components:
-    - type: Transform
-      parent: 8669
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: BoozeDispenser
   entities:
   - uid: 8791

@@ -5596,23 +5596,6 @@ entities:
     - type: Transform
       pos: 18.5,0.5
       parent: 2
-- proto: BookSpaceLaw
-  entities:
-  - uid: 3164
-    components:
-    - type: Transform
-      pos: 34.5,2.5
-      parent: 2
-  - uid: 7126
-    components:
-    - type: Transform
-      pos: 55.42702,28.665268
-      parent: 2
-  - uid: 7519
-    components:
-    - type: Transform
-      pos: 17.5,0.5
-      parent: 2
 - proto: BookTheBookOfControl
   entities:
   - uid: 7529
@@ -51470,7 +51453,7 @@ entities:
 
         [bold]Sentencing Phase:[/bold]
 
-        If the death penalty was sought (you MUST have gone through a trial for death penalty) then skip to the second part. 
+        If the death penalty was sought (you MUST have gone through a trial for death penalty) then skip to the second part.
 
         I. Each side can present more evidence/witnesses in any order. There is NO ban on emotional aspects or anything. The prosecution is to submit a suggested penalty. After all the sides are done then the judicial authority is to give a sentence.
 
