@@ -9,14 +9,14 @@ The [Wizard's Den docs site](https://docs.spacestation14.com/) has documentation
 
 ## Legal Info
 
-All code in this repository is licensed under one of the three below licenses:
-- [MIT](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/MIT.TXT)
-- [MPL-2.0](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/MPL-2.0.TXT)
-- [AGPL-3.0-or-later](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/AGPL-3.0-or-later.TXT)
+Source files in this repository are licensed under one of the three below licenses:
+- [MIT](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/MIT.txt)
+- [MPL-2.0](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/MPL-2.0.txt)
+- [AGPL-3.0-or-later](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/AGPL-3.0-or-later.txt)
 
-Files in this repository may include a REUSE Specification header, that specifies the license under which the file is licensed the authors of the file.
-Files with no such headers are licensed under the [MIT license](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/MIT.TXT).
-The complete texts of these licenses are included under the LICENSES directory.
+Each source file in this repository may include a REUSE specification header, specifying its license and copyright holder(s).
+Files with no license headers are licensed under the [MIT license](https://github.com/nabegator220/Klovnstation14/blob/master/LICENSES/MIT.txt) by default.
+The full texts of these licenses are provided under the LICENSES/ directory.
 
 Most media assets are licensed under [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) unless stated otherwise. Assets have their license and the copyright in the metadata file. [Example](https://github.com/space-wizards/space-station-14/blob/master/Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
 
