@@ -53,13 +53,14 @@ public sealed class MindShieldSystem : EntitySystem
         }
 
         if (_mindSystem.TryGetMind(implanted, out var mindId, out var mind) &&
-            _roleSystem.MindTryRemoveRole<RevolutionaryRoleComponent>(mindId))
+            _roleSystem.MindRemoveRole<RevolutionaryRoleComponent>(mindId))
         {
             _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was deconverted due to being implanted with a Mindshield.");
         }
-        else if (_roleSystem.MindTryRemoveRole<TraitorRoleComponent>(mindId) && mind != null) //removes traitor from traitors - KS14
+        else if (_roleSystem.MindRemoveRole<TraitorRoleComponent>(mindId) && mind != null) //removes traitor from traitors - KS14
         {
-            for (int i = 0; i <= (mind.Objectives?.ToArray().Length ?? 0); i++) {
+            int objectivesLength = mind.Objectives != null ? mind.Objectives.ToArray().Length : 0;
+            for (int i = 0; i <= objectivesLength; i++) {
                 _mindSystem.TryRemoveObjective(mindId, mind, 0);
             }
             _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was detraitored due to being implanted with a Mindshield.");
