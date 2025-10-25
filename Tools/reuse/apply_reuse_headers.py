@@ -155,7 +155,7 @@ def run_git_command(command, cwd=REPO_PATH, check=True):
 def get_authors_from_git(file_path, cwd=REPO_PATH):
     """
     Gets authors and their contribution years for a specific file.
-    Returns: dict like {"Author Name <email>": (min_year, max_year)}
+    Returns: dict like {"Author Name": (min_year, max_year)}
     """
     # Always get all authors
     command = ["git", "log", "--pretty=format:%at|%an|%ae|%b", "--follow", "--", file_path]
@@ -165,14 +165,12 @@ def get_authors_from_git(file_path, cwd=REPO_PATH):
         # Try to get the current user from git config as a fallback
         try:
             name_cmd = ["git", "config", "user.name"]
-            email_cmd = ["git", "config", "user.email"]
             user_name = run_git_command(name_cmd, cwd=cwd, check=False)
-            user_email = run_git_command(email_cmd, cwd=cwd, check=False)
 
-            if user_name and user_email and user_name.strip() != "Unknown":
+            if user_name and user_name.strip() != "Unknown":
                 # Use current year
                 current_year = datetime.now(timezone.utc).year
-                return {f"{user_name} <{user_email}>": (current_year, current_year)}
+                return {f"{user_name}": (current_year, current_year)}
             else:
                 print("Warning: Could not get current user from git config or name is 'Unknown'")
                 return {}
@@ -192,7 +190,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH):
         if len(parts) < 4:
             continue
 
-        timestamp_str, author_name, author_email, body = parts
+        timestamp_str, author_name, body = parts
 
         try:
             timestamp = int(timestamp_str)
@@ -200,16 +198,15 @@ def get_authors_from_git(file_path, cwd=REPO_PATH):
             continue
 
         # Add main author
-        if author_name and author_email and author_name.strip() != "Unknown":
-            author_key = f"{author_name.strip()} <{author_email.strip()}>"
+        if author_name and author_name.strip() != "Unknown":
+            author_key = f"{author_name.strip()}"
             author_timestamps[author_key].append(timestamp)
 
         # Add co-authors
         for match in co_author_regex.finditer(body):
             co_author_name = match.group(1).strip()
-            co_author_email = match.group(2).strip()
-            if co_author_name and co_author_email and co_author_name.strip() != "Unknown":
-                co_author_key = f"{co_author_name} <{co_author_email}>"
+            if co_author_name and co_author_name.strip() != "Unknown":
+                co_author_key = f"{co_author_name}"
                 author_timestamps[co_author_key].append(timestamp)
 
     # Convert timestamps to years
@@ -451,13 +448,11 @@ def process_file(file_path_tuple):
         # Add current user to authors
         try:
             name_cmd = ["git", "config", "user.name"]
-            email_cmd = ["git", "config", "user.email"]
             user_name = run_git_command(name_cmd, check=False)
-            user_email = run_git_command(email_cmd, check=False)
 
-            if user_name and user_email and user_name.strip() != "Unknown":
+            if user_name and user_name.strip() != "Unknown":
                 current_year = datetime.now(timezone.utc).year
-                current_user = f"{user_name} <{user_email}>"
+                current_user = f"{user_name}"
                 if current_user not in git_authors:
                     git_authors[current_user] = (current_year, current_year)
                     print(f"  Added current user: {current_user}")

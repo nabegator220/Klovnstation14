@@ -18,12 +18,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 NOTE: You must not port AGPL content that is utilised by any other MIT/MPL/otherwise non-AGPL licensed content. This is due to the viral nature
 of AGPL, where any code that uses AGPL must itself be licensed under AGPL. You are heavily discouraged from having code licensed under the AGPL in your PR.
 
-The REUSE Specification headers or separate .license files indicate a secondary license (e.g., AGPL or MIT) solely to facilitate 
-integration for projects that do not use the MPL license.
+The REUSE Specification headers or separate .license files indicate a secondary license (e.g., AGPL or MIT), solely to facilitate
+integration for projects that do not fall under a single license.
 
-REUSE headers already included in files relevant to the PR, or edited after being automatically edited, will not be overriden by the bot.
+REUSE headers will be automatically added via github workflow. You can edit the SPDX-License-Identifier to change the license that the file is specified as having.
+SPDX license identifiers already included in files relevant to the PR, or identifiers that were manually changed after being automatically added, will not be modified by the bot.
 
-Uncomment and modify the following line if you wish to change the license from the default of MPL. Set to `AGPL` for AGPL-3.0-or-later, `MPL` for MPL-2.0, and `MIT` for MIT.
+Upstream (wizard's den) files should be licensed as MIT. If unsure, license the file as MIT. KS14 uses the MPL license for content original to KS14.
+
+Uncomment and modify the following line if you wish to change the auto-added license from the default of MPL. Set to `AGPL` for AGPL-3.0-or-later, `MPL` for MPL-2.0, and `MIT` for MIT.
 -->
 <!--- LICENSE: MPL -->
 ## About the PR
