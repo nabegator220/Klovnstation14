@@ -1,5 +1,41 @@
-<Document>
-  # Server Rules
+<!--
+SPDX-FileCopyrightText: 2024 Aidenkrz <aiden@djkraz.com>
+SPDX-FileCopyrightText: 2024 Chief-Engineer <119664036+Chief-Engineer@users.noreply.github.com>
+SPDX-FileCopyrightText: 2024 John Willis <143434770+CerberusWolfie@users.noreply.github.com>
+SPDX-FileCopyrightText: 2024 Kira Gbedan <161087999+Verbalase@users.noreply.github.com>
+SPDX-FileCopyrightText: 2024 Piras314 <92357316+Piras314@users.noreply.github.com>
+SPDX-FileCopyrightText: 2024 basic pack <159909786+packmore@users.noreply.github.com>
+SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+SPDX-FileCopyrightText: 2025 Aiden <aiden@djkraz.com>
 
-  This server has not written any rules yet. Please listen to the staff.
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<Document>
+# Klovnstation rules
+
+  Klovnstation prides itself on maximising player agency, but there are still some basic rules you have to obey in order for everyone to have fun. However, our bans are either unappealable short cool-off bans or unappealable permabans, so unless you do something unfathomably bad you will most likely never be banned for too long.
+  Ignore the remaining rules if there are any left. This is the only rule document.
+
+  Space Station 14 is not like most games. Many rules are designed to require roleplay, and not all rules are intuitive. Please take the time to read and understand the rules before you play so that you aren't surprised. Some of our rules are zero tolerance rules, meaning that a violation will result in an indefinite ban without any warning. Game admins will treat you as if you have read the rules, even if you have not.
+
+## CORE RULES
+
+  - Use English, lest you be adminabused.
+  - Do not abuse LOOC or OOC, lest you be adminabused.
+  - No sexual content. There could be kids here and I am not doing age checks, so if I see anyone ERPing they are getting permad.
+  - Metacomming is very gigachad but please do not use them too abusively, such as talking when you are dead and whatnot. Since we lack an option to enforce this, this is basically an appeal to your good will.
+  - If you cheat, you will get banned for a while to cool off or mercilessly abused by the admins.
+  - Do not be a weaselly pilpul rules lawyer.
+  - Do not say slurs in OOC.
+
+## IN-GAME RULES
+  - Cyborgs must obey their laws familiars their masters, et cetera. Cool-off ban if not obeyed.
+  - Do not fuck with arrivals and do not cause irreparable round ending damage to the station within the first 15 minutes. Cool-off ban if not obeyed.
+  - Mindshield implants strip traitor status as an alternative to outright round removal by the now unleashed gigachad powergamer security. Please obey the fact that you are no longer a traitor.
+  - Antags must be friendly to their team and security + command must try to keep the station running for as long as possible and the population as high as possible. [textlink="REFERENCE THIS BEFORE PLAYING COMMAND OR SEC" link="CommandSecRules"] This is due to the power these rules wield and the rarity of an antag drop. Cool-off ban if not obeyed.
+  - Try to do your job. This is again a gentlemen's agreement.
+  - Keep RP to at least the bare minimum. Do not use internet speak in communication.
+  - Borgs' HUD tells them who is crew.
+  - Do not ram shuttles into the station as a non-antagonist. This is temporary and will be removed once we fix this via gameplay.
 </Document>
