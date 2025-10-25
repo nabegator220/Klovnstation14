@@ -150,7 +150,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
     """
     Gets authors and their contribution years for a specific file.
     If pr_base_sha and pr_head_sha are provided, also includes authors from the PR's commits.
-    Returns: dict like {"Author Name <email>": (min_year, max_year)}
+    Returns: dict like {"Author Name": (min_year, max_year)}
     """
     author_timestamps = defaultdict(list)
 
@@ -215,14 +215,12 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
         # Try to get the current user from git config as a fallback
         try:
             name_cmd = ["git", "config", "user.name"]
-            email_cmd = ["git", "config", "user.email"]
             user_name = run_git_command(name_cmd, cwd=cwd, check=False)
-            user_email = run_git_command(email_cmd, cwd=cwd, check=False)
 
             # Use current year
             current_year = datetime.now(timezone.utc).year
-            if user_name and user_email and user_name.strip() != "Unknown" and user_name != "TheDen-Bot":
-                return {f"{user_name} <{user_email}>": (current_year, current_year)}
+            if user_name and user_name.strip() != "Unknown" and user_name != "TheDen-Bot":
+                return {f"{user_name}": (current_year, current_year)}
             else:
                 print("Warning: Could not get current user from git config or name is 'Unknown'")
                 return {}
@@ -258,8 +256,8 @@ def process_git_log_output(output, author_timestamps):
             print(f"Skipping malformed line: {line}")
             continue
 
-        commit_hash, timestamp_str, author_name, author_email, body = parts
-        print(f"Processing commit {commit_hash[:8]} by {author_name} <{author_email}>")
+        commit_hash, timestamp_str, author_name, body = parts
+        print(f"Processing commit {commit_hash[:8]} by {author_name}")
 
         try:
             timestamp = int(timestamp_str)
@@ -267,19 +265,18 @@ def process_git_log_output(output, author_timestamps):
             continue
 
         # Add main author
-        has_token = is_token_basic(author_name) and is_token_basic(author_email)
-        if author_name and author_email and author_name.strip() != "Unknown" and not has_token:
-            author_key = f"{author_name.strip()} <{author_email.strip()}>"
+        has_token = is_token_basic(author_name)
+        if author_name and author_name.strip() != "Unknown" and not has_token:
+            author_key = f"{author_name.strip()}"
             author_timestamps[author_key].append(timestamp)
 
         # Add co-authors
         for match in co_author_regex.finditer(body):
             co_author_name = match.group(1).strip()
-            co_author_email = match.group(2).strip()
-            has_token = is_token_basic(co_author_name) and is_token_basic(co_author_email)
+            has_token = is_token_basic(co_author_name)
 
-            if co_author_name and co_author_email and co_author_name.strip() != "Unknown" and not has_token:
-                co_author_key = f"{co_author_name} <{co_author_email}>"
+            if co_author_name and co_author_name.strip() != "Unknown" and not has_token:
+                co_author_key = f"{co_author_name}"
                 author_timestamps[co_author_key].append(timestamp)
 
     # No need to convert timestamps to years here, it's done in get_authors_from_git
@@ -456,14 +453,12 @@ def process_file(file_path, default_license_id, pr_base_sha=None, pr_head_sha=No
     # Add current user to authors
     try:
         name_cmd = ["git", "config", "user.name"]
-        email_cmd = ["git", "config", "user.email"]
         user_name = run_git_command(name_cmd, check=False)
-        user_email = run_git_command(email_cmd, check=False)
 
-        if user_name and user_email and user_name.strip() != "Unknown":
+        if user_name and user_name.strip() != "Unknown":
             # Use current year
             current_year = datetime.now(timezone.utc).year
-            current_user = f"{user_name} <{user_email}>"
+            current_user = f"{user_name}"
 
             # Add current user if not already present
             if current_user not in git_authors:
