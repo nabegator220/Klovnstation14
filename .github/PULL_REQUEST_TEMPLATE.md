@@ -25,6 +25,7 @@ REUSE headers will be automatically added via github workflow. You can edit the 
 SPDX license identifiers already included in files relevant to the PR, or identifiers that were manually changed after being automatically added, will not be modified by the bot.
 
 Upstream (wizard's den) files should be licensed as MIT. If unsure, license the file as MIT. KS14 uses the MPL license for content original to KS14.
+This individual comment block can be safely removed, but you must preserve the below comment block specifying the default license of this PR.
 
 Uncomment and modify the following line if you wish to change the auto-added license from the default of MPL. Set to `AGPL` for AGPL-3.0-or-later, `MPL` for MPL-2.0, and `MIT` for MIT.
 -->
