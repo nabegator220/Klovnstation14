@@ -21,13 +21,13 @@ jobs:
   update_headers:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Fetch and Checkout Code
         uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
           fetch-depth: 0
-          token: ${GH_TOKEN}
+          token: ${{ env.GH_TOKEN }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -38,7 +38,7 @@ jobs:
         id: changed_files
         env:
            PR_BODY: ${{ github.event.pull_request.body }}
-           GH_TOKEN: ${GH_TOKEN}
+           GH_TOKEN: ${{ env.GH_TOKEN }}
            GH_REPO: ${{ github.repository }}
            PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
@@ -98,7 +98,7 @@ jobs:
 
       - name: Run REUSE Header Update Script
         run: |
-          python Tools/update_pr_reuse_headers.py \
+          python Tools/reuse/update_pr_reuse_headers.py \
             --files-added ${{ env.ADDED_FILES_LIST }} \
             --files-modified ${{ env.MODIFIED_FILES_LIST }} \
             --pr-license ${{ env.PR_LICENSE }} \
@@ -115,5 +115,3 @@ jobs:
           commit_author: ${{ vars.BOT_USER }} <${{ vars.BOT_EMAIL }}>
           skip_dirty_check: false
           skip_fetch: true
-
-    
