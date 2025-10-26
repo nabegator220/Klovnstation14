@@ -14,12 +14,8 @@ on:
       - reopened
       - ready_for_review
 
-permissions:
-  contents: write
-  workflows: write # needed for updating workflows
-
 env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.REUSE_UPDATER_TOKEN }}
 
 jobs:
   update_headers:
