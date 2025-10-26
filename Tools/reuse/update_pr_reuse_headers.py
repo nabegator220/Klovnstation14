@@ -17,7 +17,7 @@ from collections import defaultdict
 # --- Configuration ---
 LICENSE_CONFIG = {
     "mit": {"id": "MIT", "path": "LICENSES/MIT.txt"},
-    "agpl": {"id": "AGPL-3.0-or-later", "path": "LICENSES/AGPLv3.txt"},
+    "agpl": {"id": "AGPL-3.0-or-later", "path": "LICENSES/AGPL-3.0-or-later.txt"},
     "mpl": {"id": "MPL-2.0", "path": "LICENSES/MPL-2.0.txt"},
 }
 
@@ -107,7 +107,9 @@ COMMENT_STYLES = {
     ".md": ("<!--", "-->"),
     ".markdown": ("<!--", "-->"),
 }
+
 REPO_PATH = "."
+REPO_WORKFLOWS_PATH = os.path.join(REPO_PATH, ".github", "workflows")
 
 tokens = ["github_pat_", "ghp_", "gho_"]
 
@@ -418,11 +420,17 @@ def create_header(authors, license_id, comment_style):
 
     return "\n".join(lines)
 
-def process_file(file_path, default_license_id, pr_base_sha=None, pr_head_sha=None):
+def process_file(file_path: str, default_license_id, pr_base_sha=None, pr_head_sha=None):
     """
     Processes a file to add or update REUSE headers.
     Returns: True if file was modified, False otherwise
     """
+
+    # GH actions can't edit this
+    global REPO_WORKFLOWS_PATH
+    if file_path.startswith(REPO_WORKFLOWS_PATH):
+        return False
+
     # Check file extension
     _, ext = os.path.splitext(file_path)
     comment_style = COMMENT_STYLES.get(ext)
