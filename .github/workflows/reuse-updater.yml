@@ -27,7 +27,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
           fetch-depth: 0
-          token: ${GH_TOKEN}
+          token: ${{ env.GH_TOKEN }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
