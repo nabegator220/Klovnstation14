@@ -24,7 +24,7 @@ jobs:
         git config user.email ${{ vars.BOT_EMAIL }}
 
     - run: |
-        git remote add upstream $MERGED_REPO
+        git remote add upstream ${{ env.MERGED_REPO }}
         git fetch upstream
 
     - name: Merge

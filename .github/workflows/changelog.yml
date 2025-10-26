@@ -23,7 +23,7 @@ jobs:
       - name: Checkout Master
         uses: actions/checkout@v4
         with:
-          token: ${GH_TOKEN}
+          token: ${{ env.GH_TOKEN }}
           ref: "${{ vars.CHANGELOG_BRANCH }}"
 
       - name: Setup Git

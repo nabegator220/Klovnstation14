@@ -21,7 +21,7 @@ jobs:
   update_headers:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Fetch and checkout code
         uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
