@@ -119,11 +119,7 @@ def is_token_basic(text):
     return False
 
 def is_token(name):
-    email_pos = name.find("<")
-    email = name[email_pos:]
-    real_name = name[:email_pos - 2]
-
-    return is_token_basic(email) == True or is_token_basic(real_name) == True or real_name.startswith("TheDen") # lmao
+    return False
 
 def run_git_command(command, cwd=REPO_PATH, check=True):
     """Runs a git command and returns its output."""
@@ -161,7 +157,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
         print(f"PR head SHA: {pr_head_sha}")
 
         # First, let's log all commits in the PR
-        all_commits_command = ["git", "log", f"{pr_base_sha}..{pr_head_sha}", "--pretty=format:%H|%an|%ae", "--", file_path]
+        all_commits_command = ["git", "log", f"{pr_base_sha}..{pr_head_sha}", "--pretty=format:%H|%an", "--", file_path]
         print(f"Running command: {' '.join(all_commits_command)}")
         all_commits_output = run_git_command(all_commits_command, cwd=cwd, check=False)
 
@@ -173,7 +169,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
             print(f"No commits found in PR for {file_path}")
 
         # Now get the authors with timestamps
-        pr_command = ["git", "log", f"{pr_base_sha}..{pr_head_sha}", "--pretty=format:%H|%at|%an|%ae|%b", "--", file_path]
+        pr_command = ["git", "log", f"{pr_base_sha}..{pr_head_sha}", "--pretty=format:%H|%at|%an|%b", "--", file_path]
         print(f"Running command: {' '.join(pr_command)}")
         pr_output = run_git_command(pr_command, cwd=cwd, check=False)
 
@@ -195,7 +191,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
 
     # Get all historical authors
     print(f"Getting historical authors for {file_path}")
-    command = ["git", "log", "--pretty=format:%H|%at|%an|%ae|%b", "--follow", "--", file_path]
+    command = ["git", "log", "--pretty=format:%H|%at|%an|%b", "--follow", "--", file_path]
     print(f"Running command: {' '.join(command)}")
     output = run_git_command(command, cwd=cwd, check=False)
 
@@ -241,7 +237,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
 
     return author_years
 
-def process_git_log_output(output, author_timestamps):
+def process_git_log_output(output: str, author_timestamps):
     """
     Process git log output and add authors to author_timestamps.
     """
