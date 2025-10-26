@@ -21,7 +21,7 @@ jobs:
   update_headers:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch and checkout code
+      - name: Fetch and Checkout Code
         uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -115,5 +115,3 @@ jobs:
           commit_author: ${{ vars.BOT_USER }} <${{ vars.BOT_EMAIL }}>
           skip_dirty_check: false
           skip_fetch: true
-
-    
