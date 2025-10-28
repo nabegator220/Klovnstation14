@@ -59,9 +59,10 @@ public sealed class MindShieldSystem : EntitySystem
 
             if (_roleSystem.MindRemoveRole<TraitorRoleComponent>(mindId)) //removes traitor from traitors - KS14
             {
+                // its a list so we keep it at ZZERO...!!
                 var objectivesLength = mind.Objectives != null ? mind.Objectives.Count : 0;
                 for (var i = 0; i < objectivesLength; i++)
-                    _mindSystem.TryRemoveObjective(mindId, mind, i);
+                    _mindSystem.TryRemoveObjective(mindId, mind, 0);
 
                 _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was detraitored after being implanted with a Mindshield.");
             }
