@@ -247,7 +247,7 @@ public sealed partial class AtmosphereSystem
         args.Handled = true;
 
         var fireEvent = new TileExtinguishEvent();
-        _entSet.Clear();
+        _entSet.Clear(); // sus
         _lookup.GetLocalEntitiesIntersecting(tile.GridIndex, tile.GridIndices, _entSet, 0f);
 
         foreach (var entity in _entSet)
