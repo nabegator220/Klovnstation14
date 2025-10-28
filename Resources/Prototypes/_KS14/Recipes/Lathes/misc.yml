@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: Contributors to the GoobStation14 project
+#
+# SPDX-License-Identifier: MPL-2.0
+
+- type: latheRecipe
+  parent: SynthesizerInstrument
+  id: Boombox
+  result: Boombox

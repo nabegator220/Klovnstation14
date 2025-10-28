@@ -326,7 +326,6 @@
   table: !type:AllSelector
     children:
     - id: WeaponEnergyShotgun
-    - id: BookSpaceLaw
     - id: BoxEncryptionKeySecurity
     - id: CigarGoldCase
       prob: 0.50
