@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+# SPDX-FileCopyrightText: 2025 github_actions[bot]
 # SPDX-FileCopyrightText: 2025 nabegator220
 #
 # SPDX-License-Identifier: MPL-2.0
@@ -6,7 +8,7 @@
   id: FireSensor
   parent: AirSensorBase
   name: fire sensor
-  description: A special air sensor that trips when the tile it's on is on fire.
+  description: A special air sensor that trips when the tile it's on is on fire. Useful for automation!
   placement:
     mode: SnapgridCenter
   components:
