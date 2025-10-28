@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: Contributors to the GoobStation14 project
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using Content.Server.Administration.Logs;
 using Content.Server.Mind;
 using Content.Server.Popups;
