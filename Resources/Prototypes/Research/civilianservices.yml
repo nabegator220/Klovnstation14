@@ -68,6 +68,7 @@
     - DawInstrumentMachineCircuitboard
     - MassMediaCircuitboard
     - JukeboxCircuitBoard
+    - Boombox #KS14
 
 - type: technology
   id: MeatManipulation

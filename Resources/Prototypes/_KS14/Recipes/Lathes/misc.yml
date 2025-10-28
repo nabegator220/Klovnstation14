@@ -1,0 +1,4 @@
+- type: latheRecipe
+  parent: SynthesizerInstrument
+  id: Boombox
+  result: Boombox

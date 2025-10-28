@@ -152,6 +152,7 @@
       - id: HarmonicaInstrument
       - id: RecorderInstrument
       - id: GlockenspielInstrument
+      - id: Boombox #ks14
 
 - type: entity
   id: CrateFunInstrumentsBrass

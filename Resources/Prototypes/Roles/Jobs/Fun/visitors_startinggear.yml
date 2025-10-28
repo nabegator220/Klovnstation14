@@ -1268,6 +1268,7 @@
     pocket2: DrinkShamblersJuiceCan
   inhand:
   - SynthesizerInstrument
+  - Boombox
 
 - type: startingGear
   id: VisitorMusicianFancyAltC
