@@ -22664,6 +22664,18 @@ entities:
     - type: Transform
       pos: 59.5,-7.5
       parent: 8364
+- proto: BookSpaceLaw
+  entities:
+  - uid: 6338
+    components:
+    - type: Transform
+      pos: -11.479037,14.568381
+      parent: 8364
+  - uid: 7855
+    components:
+    - type: Transform
+      pos: 11.471973,44.166855
+      parent: 8364
 - proto: BoozeDispenser
   entities:
   - uid: 5555
