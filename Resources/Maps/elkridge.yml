@@ -22597,6 +22597,18 @@ entities:
     - type: Transform
       pos: -21.5,-22.5
       parent: 2
+- proto: BookSpaceLaw
+  entities:
+  - uid: 3025
+    components:
+    - type: Transform
+      pos: -35.58021,-38.40656
+      parent: 2
+  - uid: 16081
+    components:
+    - type: Transform
+      pos: -19.52816,-41.45253
+      parent: 2
 - proto: BookTruth
   entities:
   - uid: 4435

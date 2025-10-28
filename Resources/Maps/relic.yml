@@ -5596,6 +5596,23 @@ entities:
     - type: Transform
       pos: 18.5,0.5
       parent: 2
+- proto: BookSpaceLaw
+  entities:
+  - uid: 3164
+    components:
+    - type: Transform
+      pos: 34.5,2.5
+      parent: 2
+  - uid: 7126
+    components:
+    - type: Transform
+      pos: 55.42702,28.665268
+      parent: 2
+  - uid: 7519
+    components:
+    - type: Transform
+      pos: 17.5,0.5
+      parent: 2
 - proto: BookTheBookOfControl
   entities:
   - uid: 7529

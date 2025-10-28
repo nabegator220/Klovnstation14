@@ -831,6 +831,13 @@ entities:
     - type: Transform
       pos: 0.5,-27.5
       parent: 2
+- proto: BookSpaceLaw
+  entities:
+  - uid: 516
+    components:
+    - type: Transform
+      pos: -3.4286723,-13.415376
+      parent: 2
 - proto: ButtonFrameCautionSecurity
   entities:
   - uid: 256
