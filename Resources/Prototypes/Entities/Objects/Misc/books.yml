@@ -329,6 +329,8 @@
     - Chemicals
     - Chemist
 
+# KS14 - Removed spacelaw
+
 - type: entity
   parent: BookBase
   id: BookRandom
