@@ -206,7 +206,20 @@
   description: spellbook-wand-polymorph-door-description
   productEntity: WeaponWandPolymorphDoor
   cost:
-    WizCoin: 3
+    WizCoin: 1
+  categories:
+  - SpellbookEquipment
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: OuterHardsuitWizard
+  name: spellbook-wizard-hardsuit-name
+  description: spellbook-wizard-hardsuit-description
+  productEntity: ClothingOuterHardsuitWizard
+  cost:
+    WizCoin: 2
   categories:
   - SpellbookEquipment
   conditions:
@@ -219,7 +232,7 @@
   description: spellbook-wand-polymorph-carp-description
   productEntity: WeaponWandPolymorphCarp
   cost:
-    WizCoin: 3
+    WizCoin: 2
   categories:
   - SpellbookEquipment
   conditions:
@@ -232,7 +245,7 @@
   description: spellbook-wand-locker-description
   productEntity: WeaponWandLocker
   cost:
-    WizCoin: 3
+    WizCoin: 1
   categories:
   - SpellbookEquipment
   conditions:
@@ -271,7 +284,7 @@
   description: spellbook-staff-animation-description
   productEntity: AnimationStaff
   cost:
-    WizCoin: 3
+    WizCoin: 2
   categories:
   - SpellbookEquipment
   conditions:

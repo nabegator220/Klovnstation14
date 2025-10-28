@@ -204,6 +204,16 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
+    - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.7
+        Caustic: 0.7
+  - type: ExplosionResistance
+    damageCoefficient: 0.8
 
 - type: entity
   parent: ClothingOuterWizardBase
@@ -219,6 +229,16 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
+    - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.7
+        Caustic: 0.7
+  - type: ExplosionResistance
+    damageCoefficient: 0.8
 
 - type: entity
   parent: ClothingOuterWizardBase
@@ -234,6 +254,16 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
+    - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.7
+        Caustic: 0.7
+  - type: ExplosionResistance
+    damageCoefficient: 0.8
 
 - type: entity
   parent: ClothingOuterBase

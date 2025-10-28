@@ -104,7 +104,7 @@
   - type: ZombieImmune
   - type: Repairable
     doAfterDelay: 10
-    allowSelfRepair: false
+    allowSelfRepair: true #ks14 change
   - type: BorgChassis
   - type: LockingWhitelist
     blacklist:
