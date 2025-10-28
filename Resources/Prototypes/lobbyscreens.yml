@@ -1,20 +1,20 @@
 - type: lobbyBackground
-  id: 1984hnk.png
+  id: 1984hnk
   background: /Textures/LobbyScreens/1984hnk.png
 
 - type: lobbyBackground
-  id: engiwherespower.png
+  id: engiwherespower
   background: /Textures/LobbyScreens/engiwherespower.png
 
 - type: lobbyBackground
-  id: fucktiders.png
+  id: fucktiders
   background: /Textures/LobbyScreens/fucktiders.png
 
 - type: lobbyBackground
-  id: middlestation.png
+  id: middlestation
   background: /Textures/LobbyScreens/middlestation.png
 
 - type: lobbyBackground
-  id: smartguy.png
+  id: smartguy
   background: /Textures/LobbyScreens/smartguy.png
 
