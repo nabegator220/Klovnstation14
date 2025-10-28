@@ -18,7 +18,7 @@
     selectState: select
   - type: Item
     size: Normal
-    sprite: _KS14/Objects/Fun/Instruments/boombox.rsi
+    sprite: _KS14/Objects/Fun/boombox.rsi
   - type: StaticPrice
     price: 200
   - type: ActivatableUI
