@@ -14,6 +14,7 @@
 // SPDX-FileCopyrightText: 2025 Palladinium
 // SPDX-FileCopyrightText: 2025 Pieter-Jan Briers
 // SPDX-FileCopyrightText: 2025 Southbridge
+// SPDX-FileCopyrightText: 2025 github_actions[bot]
 // SPDX-FileCopyrightText: 2025 metalgearsloth
 // SPDX-FileCopyrightText: 2025 nabegator220
 //

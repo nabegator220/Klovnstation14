@@ -7,6 +7,7 @@
 // SPDX-FileCopyrightText: 2024 Mervill
 // SPDX-FileCopyrightText: 2024 drakewill-CRL
 // SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+// SPDX-FileCopyrightText: 2025 github_actions[bot]
 // SPDX-FileCopyrightText: 2025 metalgearsloth
 // SPDX-FileCopyrightText: 2025 nabegator220
 //
