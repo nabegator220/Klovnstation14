@@ -171,7 +171,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
             print(f"No commits found in PR for {file_path}")
 
         # Now get the authors with timestamps
-        pr_command = ["git", "log", f"{pr_base_sha}..{pr_head_sha}", "--pretty=format:%H|%at|%an", "--", file_path]
+        pr_command = ["git", "log", f"{pr_base_sha}..{pr_head_sha}", "--pretty=format:%H|%at|%an|%b", "--", file_path]
         print(f"Running command: {' '.join(pr_command)}")
         pr_output = run_git_command(pr_command, cwd=cwd, check=False)
 
@@ -193,7 +193,7 @@ def get_authors_from_git(file_path, cwd=REPO_PATH, pr_base_sha=None, pr_head_sha
 
     # Get all historical authors
     print(f"Getting historical authors for {file_path}")
-    command = ["git", "log", "--pretty=format:%H|%at|%an", "--follow", "--", file_path]
+    command = ["git", "log", "--pretty=format:%H|%at|%an|%b", "--follow", "--", file_path]
     print(f"Running command: {' '.join(command)}")
     output = run_git_command(command, cwd=cwd, check=False)
 
@@ -249,8 +249,8 @@ def process_git_log_output(output: str, author_timestamps):
         if not line.strip():
             continue
 
-        parts = line.split('|', 2)
-        if len(parts) < 3:
+        parts = line.split('|', 3)
+        if len(parts) < 4:
             print(f"Skipping malformed line: {line}")
             continue
 
