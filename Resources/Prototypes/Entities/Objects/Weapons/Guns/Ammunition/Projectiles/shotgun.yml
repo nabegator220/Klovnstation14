@@ -10,8 +10,8 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 40
-        Structural: 15
+        Piercing: 45
+        Structural: 30
 
 
 - type: entity
@@ -26,7 +26,7 @@
   - type: Projectile
     damage:
       types:
-        Blunt: 10
+        Blunt: 12
   - type: StaminaDamageOnCollide
     damage: 40 # 3 hits to stun
 
@@ -42,7 +42,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 10
+        Piercing: 12
         Structural: 15
 
 
@@ -54,7 +54,7 @@
   - type: ProjectileSpread
     proto: PelletShotgun
     count: 6
-    spread: 15
+    spread: 12
 
 - type: entity
   id: PelletShotgunIncendiary
@@ -69,7 +69,7 @@
     damage:
       types:
         Blunt: 3
-        Heat: 7
+        Heat: 10
   - type: IgnitionSource
     ignited: true
 
@@ -81,7 +81,7 @@
   - type: ProjectileSpread
     proto: PelletShotgunIncendiary
     count: 6
-    spread: 15
+    spread: 12
 
 - type: entity
   id: PelletShotgunPractice
@@ -105,7 +105,7 @@
   - type: ProjectileSpread
     proto: PelletShotgunPractice
     count: 6
-    spread: 15
+    spread: 12
 
 - type: entity
   id: PelletShotgunImprovised
@@ -120,7 +120,7 @@
     damage:
       types:
         Piercing: 3
-        Slash: 3
+        Slash: 5
 
 - type: entity
   id: PelletShotgunImprovisedSpread
@@ -130,7 +130,7 @@
   - type: ProjectileSpread
     proto: PelletShotgunImprovised
     count: 10
-    spread: 45
+    spread: 25
 
 - type: entity
   id: PelletShotgunTranquilizer
@@ -218,8 +218,8 @@
   - type: Projectile
     damage:
       types:
-        Radiation: 5
-        Piercing: 5
+        Radiation: 8
+        Piercing: 8
 
 - type: entity
   id: PelletShotgunUraniumSpread
@@ -246,7 +246,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 25
+        Piercing: 35
         Structural: 5
 
 - type: entity
@@ -277,7 +277,7 @@
     deleteOnCollide: false
     damage:
       types:
-        Slash: 25
+        Slash: 30
 
 - type: entity
   id: PelletGlassSpread
