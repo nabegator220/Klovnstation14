@@ -53,7 +53,7 @@ jobs:
         fi
 
     - run: |
-        git push origin --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git $MERGE_BRANCH
+        git push --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git $MERGE_BRANCH
       env:
         GH_TOKEN: ${{ env.GH_TOKEN }}
         MERGE_BRANCH: ${{ env.MERGE_BRANCH }}
