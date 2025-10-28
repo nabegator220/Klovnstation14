@@ -4,7 +4,6 @@ using Content.Server.Popups;
 using Content.Server.Roles;
 using Content.Shared.Database;
 using Content.Shared.Implants;
-using Content.Shared.Mind; // KS14
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Revolutionary.Components;
 using Content.Shared.Roles.Components;
@@ -33,9 +32,6 @@ public sealed class MindShieldSystem : EntitySystem
 
     private void OnImplantImplanted(Entity<MindShieldImplantComponent> ent, ref ImplantImplantedEvent ev)
     {
-        if (ev.Implanted == null)
-            return;
-
         EnsureComp<MindShieldComponent>(ev.Implanted);
         MindShieldRemovalCheck(ev.Implanted, ev.Implant);
     }
@@ -55,14 +51,14 @@ public sealed class MindShieldSystem : EntitySystem
         if (_mindSystem.TryGetMind(implanted, out var mindId, out var mind) &&
             _roleSystem.MindRemoveRole<RevolutionaryRoleComponent>(mindId))
         {
-            _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was derevolutionised after being implanted with a Mindshield.");
+            _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was deconverted after being implanted with a Mindshield.");
         }
         else if (_roleSystem.MindRemoveRole<TraitorRoleComponent>(mindId) && mind != null) //removes traitor from traitors - KS14
         {
-            var objectivesLength = mind.Objectives != null ? mind.Objectives.ToArray().Length : 0;
-            for (int i = 0; i <= objectivesLength; i++) {
-                _mindSystem.TryRemoveObjective(mindId, mind, 0);
-            }
+            var objectivesLength = mind.Objectives != null ? mind.Objectives.Count : 0;
+            for (var i = 0; i < objectivesLength; i++)
+                _mindSystem.TryRemoveObjective(mindId, mind, i);
+
             _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was detraitored after being implanted with a Mindshield.");
         }
     }
