@@ -1,13 +1,9 @@
 - type: entity
   name: syringe shotgun
-  parent: [BaseStorageItem, BaseMinorContraband]
+  parent: [BaseStorageItem, BaseGunWieldable, BaseMinorContraband]
   id: WeaponSyringeShotgun
   description: Made from a syringe gun, this unwieldy crime against humanity lets you shoot up to 4 syringes at a time. Takes mini-syringes. Fires burst-fire, not like a typical shotgun.
   components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Cannons/syringe_gun.rsi
-    layers:
-    - state: syringe_gun
   - type: Storage
     maxItemSize: Normal
     grid:
@@ -21,11 +17,18 @@
   - type: GunSpreadModifier
     spread: 1.4
   - type: Sprite
-    sprite: _KS14/Objects/Weapons/Guns/syringe_shotgun.rsi
+    sprite: _KS14/Objects/Weapons/Guns/syringe_shotgun.rsi #Resources/Textures/_KS14/Objects/Weapons/Guns/syringe_shotgun.rsi/equipped-BACKPACK.png
   - type: Clothing
     sprite: _KS14/Objects/Weapons/Guns/syringe_shotgun.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
   - type: Item
     sprite: _KS14/Objects/Weapons/Guns/syringe_shotgun_inhands_64x.rsi
+    size: Large
+    shape:
+    - 0,0,4,1
   - type: GunRequiresWield
   - type: Gun
     fireRate: 0.6
@@ -41,10 +44,6 @@
     clumsyProof: true
   - type: ContainerAmmoProvider
     container: storagebase
-  - type: Item
-    size: Large
-    shape:
-    - 0,0,4,1
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
