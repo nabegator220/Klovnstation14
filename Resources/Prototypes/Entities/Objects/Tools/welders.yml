@@ -51,7 +51,7 @@
       collection: MetalThud
     activatedDamage:
         types:
-            Heat: 8
+            Heat: 10
   - type: ItemToggleSize
     activatedSize: Large
   - type: ItemToggleHot

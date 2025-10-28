@@ -23,7 +23,7 @@
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 12
+        Blunt: 14
     soundHit:
       path: "/Audio/Weapons/smash.ogg"
   - type: Tag
