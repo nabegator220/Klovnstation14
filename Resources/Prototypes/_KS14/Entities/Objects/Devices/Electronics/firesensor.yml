@@ -6,7 +6,7 @@
   id: FireSensor
   parent: AirSensorBase
   name: fire sensor
-  description: A special air sensor that trips when the tile it's on is on fire.
+  description: A special air sensor that trips when the tile it's on is on fire. Useful for automation!
   placement:
     mode: SnapgridCenter
   components:
