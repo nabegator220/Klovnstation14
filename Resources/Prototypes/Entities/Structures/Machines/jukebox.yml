@@ -68,29 +68,3 @@
         layer:
         - MachineLayer
         density: 200
-
-#KS14 - boombox
-- type: entity
-  id: Boombox
-  parent: BaseItem
-  name: boombox
-  description: A handheld machine capable of playing a wide variety of tunes. Enjoyment not guaranteed.
-  components:
-  - type: Sprite
-    sprite: _KS14/Objects/Fun/boombox.rsi
-    state: icon
-  - type: Jukebox
-    onState: on
-    offState: off
-    selectState: select
-  - type: Item
-    size: Normal
-    sprite: _KS14/Objects/Fun/Instruments/boombox.rsi
-  - type: StaticPrice
-    price: 200
-  - type: ActivatableUI
-    key: enum.JukeboxUiKey.Key
-  - type: UserInterface
-    interfaces:
-        enum.JukeboxUiKey.Key:
-          type: JukeboxBoundUserInterface
