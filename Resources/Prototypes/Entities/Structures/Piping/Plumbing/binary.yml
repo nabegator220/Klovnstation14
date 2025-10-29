@@ -1,0 +1,124 @@
+# SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+#
+# SPDX-License-Identifier: MPL-2.0
+
+- type: entity
+  abstract: true
+  parent: PlumbingDeviceBase
+  id: BinaryPlumbingDeviceBase
+  components:
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+
+- type: entity
+  parent: BinaryPlumbingDeviceBase
+  id: PlumbingAtmosHeatExchanger
+  name: fluid-gas heat exchanger
+  description: A radiator that exchanges heat between atmospheric gases and fluids inside.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Structures/Piping/Atmospherics/condenser.rsi
+    snapCardinals: true
+    granularLayersRendering: true
+    layers:
+    - state: off
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: pipe
+      map: [ "enum.PipeVisualLayers.Pipe" ]
+      renderingStrategy: Default
+    - state: fill-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: trans
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { state: on }
+          False: { state: off }
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+      moderator:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: North
+  - type: Rotatable
+  - type: PlumbingHeatExchanger
+
+- type: entity
+  parent: BinaryPlumbingDeviceBase
+  id: PlumbingPump
+  name: fluid pump
+  description: A menacing electromagnetically-operated fluid pump. Hm.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    drawdepth: FloorObjects
+    noRot: true
+    sprite: Structures/Piping/Plumbing/pump.rsi
+    layers:
+    - map: [ "main" ]
+      state: pump0
+  - type: NodeContainer
+    nodes:
+      inlet: # Reversed directions due to the sprite.
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+  - type: Rotatable
+  - type: Transform
+    noRot: false
+  - type: AnimationPlayer
+  - type: PlumbingPump
+  - type: PlumbingTransitioningDevice
+    toggleOnActivate: true
+    layer: "main"
+    offState: pump0
+    onState: pump1
+
+- type: entity
+  parent: BinaryPlumbingDeviceBase
+  id: PlumbingValve
+  name: fluid valve
+  description: An unsafe-looking electromagnetic valve with a large wheel.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    drawdepth: FloorObjects
+    noRot: true
+    sprite: Structures/Piping/Plumbing/valve.rsi
+    layers:
+    - map: [ "main" ]
+      state: valve0
+  - type: Rotatable
+  - type: Transform
+    noRot: false
+  - type: AnimationPlayer
+  - type: PlumbingValve
+  - type: PlumbingTransitioningDevice
+    layer: "main"
+    offState: valve0
+    onState: valve1
+

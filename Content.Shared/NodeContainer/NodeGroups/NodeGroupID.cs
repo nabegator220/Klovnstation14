@@ -1,3 +1,9 @@
+// SPDX-FileCopyrightText: 2025 IProduceWidgets
+// SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+// SPDX-FileCopyrightText: 2025 metalgearsloth
+//
+// SPDX-License-Identifier: MPL-2.0
+
 namespace Content.Shared.NodeContainer.NodeGroups;
 
 public enum NodeGroupID : byte
@@ -17,4 +23,5 @@ public enum NodeGroupID : byte
     /// <seealso cref="Content.Server.Power.Generation.Teg.TegNodeGroup"/>
     Teg,
     ExCable,
+    Plumbing,
 }
