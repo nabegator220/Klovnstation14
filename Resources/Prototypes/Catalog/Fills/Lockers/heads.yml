@@ -231,6 +231,9 @@
     - id: MedkitFilled
     - id: RubberStampCMO
     - id: MedTekCartridge
+    - id: CloningConsoleComputerCircuitboard # ks14
+    - id: CloningPodMachineCircuitboard # ks14
+    - id: MedicalScannerMachineCircuitboard # ks14
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -326,7 +329,6 @@
   table: !type:AllSelector
     children:
     - id: WeaponEnergyShotgun
-    - id: BookSpaceLaw
     - id: BoxEncryptionKeySecurity
     - id: CigarGoldCase
       prob: 0.50

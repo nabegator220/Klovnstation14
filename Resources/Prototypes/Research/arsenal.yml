@@ -118,6 +118,7 @@
   - ChemicalPayload
   - CableDetStack1
   - EmptyDetonator
+  - ClusterBang
 
 - type: technology
   id: SpecialMeans

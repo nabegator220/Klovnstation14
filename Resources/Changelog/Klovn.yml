@@ -1,1 +1,7 @@
 Entries:
+- author: John Klovnstation Himself
+  changes:
+  - message: We won doe.
+    type: Fix
+  id: 1
+  time: '1984-04-04T04:26:00.0000000+00:00'
