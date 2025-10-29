@@ -4,6 +4,8 @@ using Content.Shared.Cloning.Events;
 using Content.Shared.Damage.Systems; // KS14
 using Content.Shared.Gravity;
 using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Movement.Pulling.Systems; // KS14
 using Content.Shared.Popups;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
@@ -23,6 +25,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
     [Dependency] private readonly StandingStateSystem _standing = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedStaminaSystem _staminaSystem = default!; // KS14
+    [Dependency] private readonly PullingSystem _pullingSystem = default!; // KS14
 
     public override void Initialize()
     {
@@ -62,8 +65,8 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
     private void OnLeaperLand(Entity<ActiveLeaperComponent> entity, ref LandEvent args)
     {
         Log.Debug("Landed leaper");
-        if (entity.Comp.GuaranteedKnockdownDuration is { } guaranteedKnockdownDuration)
-            _stun.TryKnockdown(entity.Owner, guaranteedKnockdownDuration, force: true); // KS14 change
+        if (entity.Comp.GuaranteedKnockdownDuration is { } guaranteedKnockdownDuration) // KS14 change
+            _stun.TryKnockdown(entity.Owner, guaranteedKnockdownDuration, force: true);
 
         RemCompDeferred<ActiveLeaperComponent>(entity);
     }
@@ -87,6 +90,14 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
         if (args.StaminaCost != 0f)
             _staminaSystem.TakeStaminaDamage(entity, args.StaminaCost, visual: false);
 
+        // KS14 change: Stop pulling
+        if (TryComp<PullerComponent>(entity, out var pullerComponent) &&
+            pullerComponent.Pulling is { } pulledUid &&
+            TryComp<PullableComponent>(pulledUid, out var pullableComponent))
+        {
+            _pullingSystem.TryStopPull(pulledUid, pullableComponent, entity);
+        }
+
         var xform = Transform(args.Performer);
         var throwing = xform.LocalRotation.ToWorldVec() * entity.Comp.JumpDistance;
         var direction = xform.Coordinates.Offset(throwing); // to make the character jump in the direction he's looking
@@ -99,7 +110,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
         {
             EnsureComp<ActiveLeaperComponent>(entity, out var leaperComp);
             leaperComp.KnockdownDuration = entity.Comp.CollideKnockdown;
-            leaperComp.GuaranteedKnockdownDuration = entity.Comp.FinishKnockdown;
+            leaperComp.GuaranteedKnockdownDuration = entity.Comp.FinishKnockdown; // KS14 change
             Dirty(entity.Owner, leaperComp);
         }
 
