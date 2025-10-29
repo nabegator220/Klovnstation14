@@ -21,7 +21,7 @@ LICENSE_CONFIG: dict[str, dict[str, str]] = {
     "mpl": {"id": "MPL-2.0", "path": "LICENSES/MPL-2.0.txt"},
 }
 
-DEFAULT_LICENSE_LABEL = "agpl"
+DEFAULT_LICENSE_LABEL = "mpl"
 
 # Dictionary mapping file extensions to comment styles
 # Format: {extension: (prefix, suffix)}
