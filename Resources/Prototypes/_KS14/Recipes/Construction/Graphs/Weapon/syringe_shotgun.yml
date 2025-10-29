@@ -12,7 +12,7 @@
         icon:
           sprite: Objects/Weapons/Guns/Cannons/syringe_gun.rsi
           state: syringe_gun
-        name: construction-graph-tag-pipe
+        name: construction-graph-tag-syringegun
       - tag: ModularReceiver
         icon:
           sprite: Objects/Misc/modular_receiver.rsi

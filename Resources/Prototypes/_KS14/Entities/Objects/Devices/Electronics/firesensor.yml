@@ -5,8 +5,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 - type: entity
-  id: FireSensor
   parent: AirSensorBase
+  id: FireSensor
   name: fire sensor
   description: A special air sensor that trips when the tile it's on is on fire. Useful for automation!
   placement:
