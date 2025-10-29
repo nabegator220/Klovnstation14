@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2021 Vera Aguilera Puerto
+# SPDX-FileCopyrightText: 2022 mirrorcult
+# SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+#
+# SPDX-License-Identifier: MPL-2.0
+
 - type: soundCollection
   id: gib
   files: # KS14 - new sounds

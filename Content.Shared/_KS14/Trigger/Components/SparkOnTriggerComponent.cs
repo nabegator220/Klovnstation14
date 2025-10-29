@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using System.Numerics;
 using Content.Shared.Trigger.Components.Effects;
 using Robust.Shared.Audio;
