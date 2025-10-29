@@ -534,14 +534,6 @@
     - CorgiWearable
     - ClothMade
     - WhitelistChameleon
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Heat: 0.9
-        Caustic: 0.9
 
 - type: entity
   parent: [ClothingHeadBase, BaseFoldable]
@@ -745,14 +737,6 @@
     - CorgiWearable
     - ClothMade
     - WhitelistChameleon
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Heat: 0.9
-        Caustic: 0.9
 
 - type: entity
   parent: ClothingHeadBase
@@ -815,6 +799,14 @@
   id: ClothingHeadHatWizardBase
   components:
   - type: WizardClothes
+  - type: Armor # KS14 Change - armor for base wizhat
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+        Caustic: 0.9
 
 - type: entity
   parent: ClothingHeadHatWizardBase
@@ -834,14 +826,6 @@
     - Recyclable
     - HamsterWearable
     - WhitelistChameleon
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Heat: 0.9
-        Caustic: 0.9
 
 - type: entity
   parent: ClothingHeadBase
