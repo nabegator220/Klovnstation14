@@ -421,6 +421,9 @@
     sprite: Objects/Specific/Hydroponics/banana.rsi
     heldPrefix: peel
   - type: Slippery
+    slipData: # KS14 - stuntime matches knockdowntime
+      stunTime: 1.5
+      knockdownTime: 1.5
   - type: StepTrigger
     intersectRatio: 0.2
   - type: CollisionWake
