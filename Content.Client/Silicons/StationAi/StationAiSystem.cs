@@ -19,6 +19,7 @@ public sealed partial class StationAiSystem : SharedStationAiSystem
     {
         base.Initialize();
         InitializeAirlock();
+        InitializeBot();
         InitializePowerToggle();
 
         SubscribeLocalEvent<StationAiOverlayComponent, LocalPlayerAttachedEvent>(OnAiAttached);

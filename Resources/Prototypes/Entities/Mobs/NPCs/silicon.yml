@@ -300,6 +300,12 @@
   - type: HTN
     rootTask:
       task: CleanbotCompound
+  - type: StationAiWhitelist
+  - type: ControllableBot
+  - type: UserInterface
+    interfaces:
+      enum.AiUi.Key:
+        type: StationAiBoundUserInterface
   - type: DrainableSolution
     solution: drainBuffer
   - type: InteractionPopup

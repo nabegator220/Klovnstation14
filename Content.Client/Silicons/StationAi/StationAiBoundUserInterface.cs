@@ -19,7 +19,6 @@ public sealed class StationAiBoundUserInterface(EntityUid owner, Enum uiKey) : B
         _menu.Track(Owner);
         var buttonModels = ConvertToButtons(ev.Actions);
         _menu.SetButtons(buttonModels);
-        
         _menu.Open();
     }
 
