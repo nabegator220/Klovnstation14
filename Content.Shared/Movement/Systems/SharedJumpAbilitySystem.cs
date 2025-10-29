@@ -14,6 +14,7 @@ using Content.Shared.Throwing;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map; // KS14
 using Robust.Shared.Physics.Events;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Movement.Systems;
 
@@ -29,6 +30,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
     [Dependency] private readonly SharedStaminaSystem _staminaSystem = default!; // KS14
     [Dependency] private readonly PullingSystem _pullingSystem = default!; // KS14
     [Dependency] private readonly SharedMoverController _moverController = default!; // KS14
+    [Dependency] private readonly IGameTiming _gameTiming = default!; // KS14
 
     public override void Initialize()
     {
@@ -64,7 +66,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
         if (entity.Comp.KnockdownDuration is { } collisionKnockdownDuration) // KS14 change: made optional
             _stun.TryKnockdown(entity.Owner, collisionKnockdownDuration, force: true);
 
-        if (entity.Comp.StaminaDamage != 0f) // KS14 addition
+        if (entity.Comp.StaminaDamage != 0f && _gameTiming.IsFirstTimePredicted /* which genius thought to predict this event */) // KS14 addition
             _staminaSystem.TakeStaminaDamage(args.OtherEntity, entity.Comp.StaminaDamage);
 
         RemCompDeferred<ActiveLeaperComponent>(entity);

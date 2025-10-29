@@ -9,6 +9,7 @@
     canCollide: true
     jumpDistance: 1.25
     finishKnockdown: 0.85
+    hitStaminaDamage: 40
     jumpSound:
       path: /Audio/Weapons/punchmiss.ogg
       params:
