@@ -70,6 +70,10 @@ spellbook-hammer-singularity-description = Ever wonder what it'd be like to be t
 spellbook-staff-animation-name = Staff of Animation
 spellbook-staff-animation-description = Bring inanimate objects to life!
 
+spellbook-wizard-hardsuit-name = Wizard hardsuit
+spellbook-wizard-hardsuit-description = Space resistant magical armor.
+
+
 # Events
 
 spellbook-event-summon-ghosts-name = Summon Ghosts
