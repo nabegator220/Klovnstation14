@@ -8,6 +8,8 @@ namespace Content.Shared._KS14.DeferredSpawn;
 /// </summary>
 public sealed class DeferredSpawnSystem : EntitySystem
 {
+    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+
     private readonly Queue<(EntProtoId, MapCoordinates)> _spawnMapQueue = new();
     private readonly Queue<(EntProtoId, EntityCoordinates)> _spawnAttachedQueue = new();
 
@@ -38,6 +40,8 @@ public sealed class DeferredSpawnSystem : EntitySystem
     }
 
     public void DeferSpawn(EntProtoId entityProtoId, MapCoordinates coordinates) => _spawnMapQueue.Enqueue((entityProtoId, coordinates));
+
+    public void DeferSpawn(EntProtoId entityProtoId, EntityCoordinates coordinates) => _spawnMapQueue.Enqueue((entityProtoId, _transformSystem.ToMapCoordinates(coordinates)));
 
     public void DeferSpawnAttachedTo(EntProtoId entityProtoId, EntityCoordinates coordinates) => _spawnAttachedQueue.Enqueue((entityProtoId, coordinates));
 }
