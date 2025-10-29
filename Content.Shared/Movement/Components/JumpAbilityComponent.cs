@@ -1,3 +1,10 @@
+// SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+// SPDX-FileCopyrightText: 2025 ScarKy0
+// SPDX-FileCopyrightText: 2025 slarticodefast
+// SPDX-FileCopyrightText: 2025 Голубь
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using Content.Shared.Actions;
 using Content.Shared.Movement.Systems;
 using Robust.Shared.Audio;
