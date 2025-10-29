@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using Content.Shared.Plumbing.Components;
 using Content.Server.Plumbing.Extensions;
 using Content.Server.NodeContainer.EntitySystems;
