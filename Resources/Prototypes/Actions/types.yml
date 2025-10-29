@@ -440,9 +440,9 @@
     icon:
       sprite: Interface/Actions/jump.rsi
       state: icon
-  - type: InstantAction
+  - type: InstantAction # KS14 - Added stamina cost
     event: !type:GravityJumpEvent
-      staminaCost: 80
+      staminaCost: 65.220
 
 - type: entity
   parent: BaseToggleAction

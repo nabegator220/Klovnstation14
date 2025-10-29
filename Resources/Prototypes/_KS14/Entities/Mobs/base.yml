@@ -7,7 +7,8 @@
   - type: JumpAbility
     action: ActionGravityDive
     canCollide: true
-    jumpDistance: 3.5
+    jumpDistance: 1.25
+    finishKnockdown: 0.85
     jumpSound:
       path: /Audio/Weapons/punchmiss.ogg
       params:

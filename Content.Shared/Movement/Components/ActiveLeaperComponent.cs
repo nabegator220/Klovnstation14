@@ -3,7 +3,7 @@ using Robust.Shared.GameStates;
 namespace Content.Shared.Movement.Components;
 
 /// <summary>
-/// Marker component given to the users of the <see cref="JumpAbilityComponent"/> if they are meant to collide with environment.
+/// Marker component given to the users of the <see cref="JumpAbilityComponent"/>.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class ActiveLeaperComponent : Component
@@ -12,7 +12,7 @@ public sealed partial class ActiveLeaperComponent : Component
     /// The duration to stun the owner on collide with environment.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan KnockdownDuration;
+    public TimeSpan? KnockdownDuration = null; // KS14: Made optional
 
     // KS14 addition
     /// <summary>
@@ -21,4 +21,11 @@ public sealed partial class ActiveLeaperComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public TimeSpan? GuaranteedKnockdownDuration = null;
+
+    // KS14 addition
+    /// <summary>
+    /// If specified, this much stamina damage will be dealt to any hit targets.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float StaminaDamage = 0f;
 }

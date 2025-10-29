@@ -58,7 +58,14 @@ public sealed partial class JumpAbilityComponent : Component
     /// Not applied after a collision, if <see cref="CanCollide"/> is true or this is null.
     /// </summary>
     [DataField]
-    public TimeSpan? FinishKnockdown = TimeSpan.FromSeconds(2.5);
+    public TimeSpan? FinishKnockdown = TimeSpan.FromSeconds(1);
+
+    // KS14 addition
+    /// <summary>
+    /// Damage dealt to hit entities if <see cref="CanCollide"/> is true. 
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float HitStaminaDamage = 60f;
 
     /// <summary>
     /// This gets played whenever the jump action is used.
