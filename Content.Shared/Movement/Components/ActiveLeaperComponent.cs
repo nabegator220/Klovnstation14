@@ -13,4 +13,12 @@ public sealed partial class ActiveLeaperComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public TimeSpan KnockdownDuration;
+
+    // KS14 addition
+    /// <summary>
+    /// If specified, this is how long to stun the owner for if they didn't collide with the
+    /// environment after finishing the leap.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public TimeSpan? GuaranteedKnockdownDuration = null;
 }

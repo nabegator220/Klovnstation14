@@ -215,6 +215,7 @@
   - MobRespirator
   - MobAtmosStandard
   - MobFlammable
+  - MobLeaper # KS14 Change
   - BaseMobSpecies
   id: BaseMobSpeciesOrganic
   abstract: true

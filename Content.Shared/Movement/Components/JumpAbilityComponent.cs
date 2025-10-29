@@ -48,7 +48,17 @@ public sealed partial class JumpAbilityComponent : Component
     /// The duration of the knockdown in case of a collision from CanCollide.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan CollideKnockdown = TimeSpan.FromSeconds(2);
+    public TimeSpan CollideKnockdown = TimeSpan.FromSeconds(3);
+
+    // KS14 addition
+    /// <summary>
+    /// The duration of the knockdown after finishing a jump, when <see cref="KnockdownOnFinish"/>
+    /// is true.
+    /// 
+    /// Not applied after a collision, if <see cref="CanCollide"/> is true or this is null.
+    /// </summary>
+    [DataField]
+    public TimeSpan? FinishKnockdown = TimeSpan.FromSeconds(2.5);
 
     /// <summary>
     /// This gets played whenever the jump action is used.
@@ -63,5 +73,12 @@ public sealed partial class JumpAbilityComponent : Component
     public LocId? JumpFailedPopup = "jump-ability-failure";
 }
 
-public sealed partial class GravityJumpEvent : InstantActionEvent;
-
+public sealed partial class GravityJumpEvent : InstantActionEvent
+{
+    // KS14 addition
+    /// <summary>
+    /// Amount of stamina taken when doing this action.
+    /// </summary>
+    [DataField]
+    public float StaminaCost = 0f;
+}

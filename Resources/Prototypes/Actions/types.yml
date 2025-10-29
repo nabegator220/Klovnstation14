@@ -431,9 +431,9 @@
 
 - type: entity
   parent: BaseAction
-  id: ActionVulpkaninGravityJump
-  name: Leap
-  description: Use your agile legs to leap a short distance. Be careful not to bump into anything!
+  id: ActionGravityDive # KS14 - Made this into dive
+  name: Dive
+  description: Dive forwards.
   components:
   - type: Action
     useDelay: 12
@@ -441,7 +441,8 @@
       sprite: Interface/Actions/jump.rsi
       state: icon
   - type: InstantAction
-    event: !type:GravityJumpEvent {}
+    event: !type:GravityJumpEvent
+      staminaCost: 80
 
 - type: entity
   parent: BaseToggleAction

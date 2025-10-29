@@ -1,6 +1,7 @@
 using Content.Shared.Actions;
 using Content.Shared.Actions.Components;
 using Content.Shared.Cloning.Events;
+using Content.Shared.Damage.Systems; // KS14
 using Content.Shared.Gravity;
 using Content.Shared.Movement.Components;
 using Content.Shared.Popups;
@@ -21,6 +22,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly StandingStateSystem _standing = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedStaminaSystem _staminaSystem = default!; // KS14
 
     public override void Initialize()
     {
@@ -59,11 +61,16 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
 
     private void OnLeaperLand(Entity<ActiveLeaperComponent> entity, ref LandEvent args)
     {
+        Log.Debug("Landed leaper");
+        if (entity.Comp.GuaranteedKnockdownDuration is { } guaranteedKnockdownDuration)
+            _stun.TryKnockdown(entity.Owner, guaranteedKnockdownDuration, force: true); // KS14 change
+
         RemCompDeferred<ActiveLeaperComponent>(entity);
     }
 
     private void OnLeaperStopThrow(Entity<ActiveLeaperComponent> entity, ref StopThrowEvent args)
     {
+        Log.Debug("Stopped throwing leaper");
         RemCompDeferred<ActiveLeaperComponent>(entity);
     }
 
@@ -75,6 +82,10 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
                 _popup.PopupClient(Loc.GetString(entity.Comp.JumpFailedPopup.Value), args.Performer, args.Performer);
             return;
         }
+
+        // KS14 change: Stamina-cost
+        if (args.StaminaCost != 0f)
+            _staminaSystem.TakeStaminaDamage(entity, args.StaminaCost, visual: false);
 
         var xform = Transform(args.Performer);
         var throwing = xform.LocalRotation.ToWorldVec() * entity.Comp.JumpDistance;
@@ -88,6 +99,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
         {
             EnsureComp<ActiveLeaperComponent>(entity, out var leaperComp);
             leaperComp.KnockdownDuration = entity.Comp.CollideKnockdown;
+            leaperComp.GuaranteedKnockdownDuration = entity.Comp.FinishKnockdown;
             Dirty(entity.Owner, leaperComp);
         }
 
@@ -104,6 +116,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
         targetComp.CanCollide = ent.Comp.CanCollide;
         targetComp.JumpSound = ent.Comp.JumpSound;
         targetComp.CollideKnockdown = ent.Comp.CollideKnockdown;
+        targetComp.FinishKnockdown = ent.Comp.FinishKnockdown; // KS14 change
         targetComp.JumpDistance = ent.Comp.JumpDistance;
         targetComp.JumpThrowSpeed = ent.Comp.JumpThrowSpeed;
         AddComp(args.CloneUid, targetComp, true);
