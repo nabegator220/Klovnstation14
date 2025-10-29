@@ -1,6 +1,11 @@
+# SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+# SPDX-FileCopyrightText: 2025 github_actions[bot]
 # SPDX-FileCopyrightText: 2025 nabegator220
 #
 # SPDX-License-Identifier: MPL-2.0
 
-- type: Tag
-  id: FireSensor # Ganimed - KS14 fire sensor port
+- type: Tag # Ganimed - KS14 fire sensor port
+  id: FireSensor
+
+- type: Tag # For crafting syringe shotgun out of syringe gun
+  id: SyringeGun
