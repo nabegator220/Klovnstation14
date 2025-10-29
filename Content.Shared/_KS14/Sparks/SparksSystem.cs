@@ -10,6 +10,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._KS14.Sparks;
 
+// TODO: default soundcollection
 public abstract class SharedSparksSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _gameTiming = default!;
