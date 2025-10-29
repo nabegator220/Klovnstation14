@@ -21,3 +21,15 @@ Entries:
       message: You can now craft syringe shotgun, see crafting menu.
   id: 3
   time: '2025-10-29T10:09:44.0000000+00:00'
+- author: LaCumbiaDelCoronavirus
+  changes:
+    - type: Add
+      message: >-
+        You can now leap in the direction you are moving. This will do stamina
+        damage to  anything you hit.
+    - type: Tweak
+      message: Leaping now costs stamina.
+    - type: Fix
+      message: Slip combat is real again and soap/peels are no longer useless.
+  id: 4
+  time: '2025-10-29T16:04:11.0000000+00:00'
