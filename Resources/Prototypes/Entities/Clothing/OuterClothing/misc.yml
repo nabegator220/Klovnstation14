@@ -28,7 +28,7 @@
 # SPDX-FileCopyrightText: 2025 Sparlight
 # SPDX-FileCopyrightText: 2025 dandy
 #
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 
 - type: entity
   parent: ClothingOuterStorageBase

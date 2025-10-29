@@ -3,7 +3,7 @@
 # SPDX-FileCopyrightText: 2025 Pieter-Jan Briers
 # SPDX-FileCopyrightText: 2025 metalgearsloth
 #
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 
 # Asteroid
 - type: biomeTemplate
@@ -103,10 +103,10 @@
     entities:
     - SalvageSpawnerTreasure
     - SalvageSpawnerTreasure
-    - SalvageSpawnerEquipment
-    - SalvageSpawnerEquipment
+    - SalvageSpawnerEquipment # KS14 - Readded this
+    - SalvageSpawnerEquipment # KS14 - Readded this
     - SalvageSpawnerTreasureValuable
-    - SalvageSpawnerEquipmentValuable
+    - SalvageSpawnerEquipmentValuable # KS14 - Readded this
   - !type:BiomeEntityLayer
     allowedTiles:
     - FloorSteel

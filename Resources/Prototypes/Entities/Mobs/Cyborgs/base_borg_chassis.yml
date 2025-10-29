@@ -50,7 +50,7 @@
 # SPDX-FileCopyrightText: 2025 lzk
 # SPDX-FileCopyrightText: 2025 slarticodefast
 #
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 
 - type: entity
   parent: [BaseMob, StripableInventoryBase]
@@ -158,7 +158,7 @@
   - type: ZombieImmune
   - type: Repairable
     doAfterDelay: 10
-    allowSelfRepair: true #ks14 change
+    allowSelfRepair: true # KS14 - Allow selfrepair
   - type: BorgChassis
   - type: LockingWhitelist
     blacklist:
