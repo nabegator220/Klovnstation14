@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # Used for mobs that can leap forward
 - type: entity
   save: false

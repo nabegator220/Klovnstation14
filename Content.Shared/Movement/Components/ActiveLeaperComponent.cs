@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+// SPDX-FileCopyrightText: 2025 ScarKy0
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using Robust.Shared.GameStates;
 
 namespace Content.Shared.Movement.Components;
