@@ -1,7 +1,17 @@
 Entries:
 - author: John Klovnstation Himself
   changes:
-  - message: We won doe.
-    type: Fix
+    - message: We won doe.
+      type: Fix
   id: 1
   time: '1984-04-04T04:26:00.0000000+00:00'
+- author: FrauZj
+  changes:
+    - type: Add
+      message: Wizard hardsuit is now in wizard grimore
+    - type: Tweak
+      message: Made Wizard robes be an actual armor.
+    - type: Tweak
+      message: Borgs can now self-repair.
+  id: 2
+  time: '2025-10-29T09:55:52.0000000+00:00'
