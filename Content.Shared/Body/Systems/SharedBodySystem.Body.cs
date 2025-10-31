@@ -11,6 +11,7 @@
 // SPDX-FileCopyrightText: 2024 Jezithyr
 // SPDX-FileCopyrightText: 2024 ShadowCommander
 // SPDX-FileCopyrightText: 2025 LaCumbiaDelCoronavirus
+// SPDX-FileCopyrightText: 2025 github_actions[bot]
 //
 // SPDX-License-Identifier: MPL-2.0
 
