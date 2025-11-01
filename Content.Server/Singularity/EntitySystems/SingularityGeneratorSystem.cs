@@ -53,6 +53,9 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
             return;
 
         SetPower(uid, 0, comp);
+
+        // Other particle entities from the same wave could trigger additional teslas to spawn, so we must block the generator
+        comp.Inert = true;
         Spawn(comp.SpawnPrototype, Transform(uid).Coordinates);
     }
 
@@ -112,7 +115,8 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
         if (!TryComp<SingularityGeneratorComponent>(args.OtherEntity, out var generatorComp))
             return;
 
-        if (_timing.CurTime < _metadata.GetPauseTime(uid) + generatorComp.NextFailsafe && !generatorComp.FailsafeDisabled)
+        if (generatorComp.Inert ||
+            _timing.CurTime < generatorComp.NextFailsafe && !generatorComp.FailsafeDisabled)
         {
             QueueDel(uid);
             return;
@@ -176,9 +180,10 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
 
         foreach (var result in rayCastResults)
         {
-            if (genQuery.HasComponent(result.HitEntity))
-                closestResult = result;
+            if (!genQuery.HasComponent(result.HitEntity))
+                continue;
 
+            closestResult = result;
             break;
         }
 
