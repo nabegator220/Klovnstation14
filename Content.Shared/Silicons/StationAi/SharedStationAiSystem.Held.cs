@@ -6,6 +6,7 @@ using Content.Shared.Verbs;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 using System.Diagnostics.CodeAnalysis;
+using Robust.Shared.Map;
 
 namespace Content.Shared.Silicons.StationAi;
 
@@ -240,6 +241,12 @@ public abstract class BaseStationAiAction
 {
     [field:NonSerialized]
     public EntityUid User { get; set; }
+
+    /// <summary>
+    /// Optional target coordinates provided by client (map-relative net coordinates).
+    /// Set by client when starting a targeting flow so the server gets the selected world position.
+    /// </summary>
+    public NetCoordinates TargetCoordinates { get; set; } = NetCoordinates.Invalid;
 }
 
 // No idea if there's a better way to do this.

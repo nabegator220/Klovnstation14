@@ -1,5 +1,6 @@
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Silicons.StationAi;
+using Content.Shared._KS14.Silicons.StationAi;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Silicons.StationAi;
@@ -40,6 +41,29 @@ public sealed class StationAiBoundUserInterface(EntityUid owner, Enum uiKey) : B
 
     private void HandleRadialMenuClick(BaseStationAiAction p)
     {
+        // If this is the bot test event, start a one-shot targeting flow so the next
+        // left/right click is captured. Otherwise fall back to the normal behavior.
+        if (p is StationAiBotTestEvent)
+        {
+            var stationAi = EntMan.System<StationAiSystem>();
+            stationAi.StartTargeting((coords, cancelled) =>
+            {
+                if (cancelled)
+                {
+                    // user cancelled; do nothing
+                    return;
+                }
+
+                // Attach selected coordinates to the action before sending so the server receives the target.
+                p.TargetCoordinates = coords;
+
+                // After capture, continue with the normal predicted message flow.
+                SendPredictedMessage(new StationAiRadialMessage { Event = p });
+            });
+
+            return;
+        }
+
         SendPredictedMessage(new StationAiRadialMessage { Event = p });
     }
 }
